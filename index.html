@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Amsler Grid Testi – Tek Dosya</title>
+  <title>Amsler Grid Test – Single File</title>
   <style>
     :root{
       --bg:#ffffff; --fg:#111827; --mid:#6b7280; --border:#e5e7eb;
@@ -21,7 +21,7 @@
     .controls .line{display:flex;align-items:center;gap:10px;margin:10px 0}
     .controls input[type="number"], .controls input[type="text"]{width:100px;padding:6px 8px;border:1px solid var(--border);border-radius:10px;background:transparent;color:inherit}
     .controls input[type="range"]{width:100%}
-    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:12px;background:transparent;color:inherit;cursor:pointer}
+    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:12px;background:transparent;color:inherit;cursor:pointer;text-decoration:none;display:inline-block}
     .btn:hover{background:rgba(0,0,0,.04)}
     .btn.primary{background:#059669;border-color:#059669;color:#fff}
     .btn.primary:hover{background:#047857}
@@ -30,7 +30,6 @@
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:50}
     .modal.open{display:flex}
     .modal .panel{width:min(680px,92vw);border:1px solid var(--border);border-radius:16px;background:var(--bg);color:inherit;padding:16px}
-    /* dark mode (toggled by body.dark) */
     body.dark{background:var(--bg-dark);color:var(--fg-dark)}
     body.dark header, body.dark footer{border-color:var(--border-dark)}
     body.dark .card, body.dark .frame, body.dark .modal .panel{border-color:var(--border-dark)}
@@ -41,75 +40,76 @@
 <body>
   <div class="container">
     <header style="display:flex;gap:12px;align-items:center;justify-content:space-between">
-      <h1 style="margin:0;font-weight:600;font-size:22px">Amsler Grid Testi</h1>
+      <h1 style="margin:0;font-weight:600;font-size:22px">Amsler Grid Test</h1>
       <div style="display:flex;gap:8px">
-        <button id="themeBtn" class="btn" aria-label="Tema değiştir">Koyu Tema</button>
-        <button id="calBtn" class="btn">Kalibrasyon</button>
-        <button id="pngBtn" class="btn">PNG İndir</button>
+        <a href="../" class="btn">Türkçe</a>
+        <button id="themeBtn" class="btn" aria-label="Toggle theme">Dark Theme</button>
+        <button id="calBtn" class="btn">Calibration</button>
+        <button id="pngBtn" class="btn">Download PNG</button>
       </div>
     </header>
 
     <section class="row" style="padding-block:12px">
       <div class="card controls">
-        <h2 style="margin:0 0 6px 0;font-size:16px">Görüntü Kontrolleri</h2>
+        <h2 style="margin:0 0 6px 0;font-size:16px">Display Controls</h2>
         <div class="line">
-          <label>Yakınlaştırma</label>
+          <label>Zoom</label>
           <input id="scaleRange" type="range" min="0.5" max="4" step="0.01" value="1" />
           <div id="scaleLbl" style="width:56px;text-align:right;font-variant-numeric:tabular-nums">1.00x</div>
         </div>
         <div class="line">
-          <label>Kare Boyutu</label>
+          <label>Square Size</label>
           <input id="squareMm" type="number" min="1" max="20" step="0.5" value="5" />
           <span>mm</span>
         </div>
         <div class="line">
-          <label>Izgara Boyutu</label>
+          <label>Grid Size</label>
           <input id="gridCm" type="number" min="5" max="20" step="1" value="10" />
           <span>cm</span>
         </div>
         <div class="line">
-          <label>Merkez Nokta</label>
+          <label>Center Dot</label>
           <input id="fixChk" type="checkbox" checked />
           <input id="fixMm" type="number" min="0.5" max="4" step="0.1" value="1.5" />
           <span>mm</span>
         </div>
-        <div class="line" style="font-size:12px;opacity:.75">Kalibrasyon: <span id="pxmm">3.780</span> px/mm</div>
+        <div class="line" style="font-size:12px;opacity:.75">Calibration: <span id="pxmm">3.780</span> px/mm</div>
       </div>
 
       <div class="card">
-        <h2 style="margin:0 0 6px 0;font-size:16px">Kullanım Talimatları (Özet)</h2>
+        <h2 style="margin:0 0 6px 0;font-size:16px">Usage Instructions (Quick)</h2>
         <ol style="margin:6px 0 0 18px;line-height:1.6;font-size:14px">
-          <li>Gerekirse <b>Kalibrasyon</b> yapın: kart alanını gerçek kartla eşleyin.</li>
-          <li>Ekrandan yaklaşık <b>30–35 cm</b> uzakta oturun.</li>
-          <li>Bir gözünüzü kapatın ve <b>merkez noktaya</b> bakın.</li>
-          <li>Çizgilerde <i>eğrilme, kırılma, kararma</i> var mı kontrol edin.</li>
-          <li>Her iki göz için tekrarlayın ve şüphe varsa hekime başvurun.</li>
+          <li>If needed, open <b>Calibration</b> and match the on-screen card to a real bank card.</li>
+          <li>Sit about <b>30–35 cm</b> from the screen.</li>
+          <li>Cover one eye and fixate on the <b>center dot</b> with the other.</li>
+          <li>Check for any <i>wavy, broken, or dark</i> lines.</li>
+          <li>Repeat for both eyes and consult an eye doctor if anything seems abnormal.</li>
         </ol>
-        <p style="font-size:12px;opacity:.7">Uyarı: Bu test tıbbi tanı yerine geçmez.</p>
+        <p style="font-size:12px;opacity:.7">Disclaimer: This tool is educational and not a medical diagnosis.</p>
       </div>
     </section>
 
     <section class="grid-wrap">
       <div class="frame">
-        <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler ızgarası"></svg>
+        <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler grid"></svg>
       </div>
     </section>
 
     <footer>
-      © <span id="year"></span> Amsler Grid Aracı — Eğitim amaçlıdır.
+      © <span id="year"></span> Amsler Grid Tool — For educational use only.
     </footer>
   </div>
 
-  <!-- Kalibrasyon Modalı -->
+  <!-- Calibration Modal -->
   <div id="calModal" class="modal" aria-hidden="true">
     <div class="panel">
-      <h3 style="margin:0 0 6px 0">Ekran Kalibrasyonu</h3>
+      <h3 style="margin:0 0 6px 0">Screen Calibration</h3>
       <p style="margin:0 0 10px 0;font-size:14px;opacity:.85">
-        Aşağıdaki dikdörtgeni gerçek bir kredi/banka kartınızla <b>aynı genişlikte</b> olacak şekilde ayarlayın.
-        Kartın standart genişliği <b>85.6 mm</b>'dir. Bu işlem piksel/mm oranını doğru hesaplar.
+        Adjust the rectangle below to match the <b>exact width</b> of a real bank card.
+        A standard card is <b>85.6 mm</b> wide. This sets an accurate pixels-per-millimeter ratio.
       </p>
       <div class="line">
-        <label>Kart Genişliği</label>
+        <label>Card Width</label>
         <input id="cardRange" type="range" min="80" max="560" step="1" value="320" style="width:100%" />
         <div id="cardPxLbl" style="width:72px;text-align:right;font-variant-numeric:tabular-nums">320px</div>
       </div>
@@ -117,10 +117,10 @@
         <div id="cardBox" style="border:2px solid #10b981;border-radius:6px;background:rgba(16,185,129,.08);width:320px;height:202px"></div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px">
-        <div style="font-size:12px;opacity:.75">Hesaplanan px/mm: <span id="calcPxmm">3.740</span></div>
+        <div style="font-size:12px;opacity:.75">Computed px/mm: <span id="calcPxmm">3.740</span></div>
         <div style="display:flex;gap:8px">
-          <button id="calCancel" class="btn">İptal</button>
-          <button id="calApply" class="btn primary">Uygula</button>
+          <button id="calCancel" class="btn">Cancel</button>
+          <button id="calApply" class="btn primary">Apply</button>
         </div>
       </div>
     </div>
@@ -128,16 +128,14 @@
 
   <script>
   (function(){
-    // ----- Durum -----
     const DEFAULT_PX_PER_MM = 96/25.4; // ≈3.7795 px/mm
     let pxPerMm = DEFAULT_PX_PER_MM;
     let scale = 1;
-    let squareSizeMm = 5; // kare kenarı
-    let gridSizeCm = 10;  // 10 cm
+    let squareSizeMm = 5; 
+    let gridSizeCm = 10;  
     let showFixation = true;
     let fixationSizeMm = 1.5;
 
-    // ----- Elemanlar -----
     const body = document.body;
     const grid = document.getElementById('grid');
     const scaleRange = document.getElementById('scaleRange');
@@ -162,11 +160,9 @@
 
     year.textContent = new Date().getFullYear();
 
-    // ----- Yardımcılar -----
     const clamp = (v,min,max)=>Math.min(max,Math.max(min,Number(v)||0));
     const fmt = (n)=>Number(n).toFixed(3);
 
-    // ----- Çizim -----
     function redraw(){
       const gridSizeMm = gridSizeCm*10;
       const gridPx = gridSizeMm*pxPerMm*scale;
@@ -174,20 +170,19 @@
       const numLines = Math.round(gridSizeMm/squareSizeMm);
 
       const dark = body.classList.contains('dark');
-      const bg = dark ? getComputedStyle(document.documentElement).getPropertyValue('--bg-dark').trim() : getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
-      const fg = dark ? getComputedStyle(document.documentElement).getPropertyValue('--fg-dark').trim() : getComputedStyle(document.documentElement).getPropertyValue('--fg').trim();
-      const mid = dark ? getComputedStyle(document.documentElement).getPropertyValue('--mid-dark').trim() : getComputedStyle(document.documentElement).getPropertyValue('--mid').trim();
+      const styles = getComputedStyle(document.documentElement);
+      const bg = dark ? styles.getPropertyValue('--bg-dark').trim() : styles.getPropertyValue('--bg').trim();
+      const fg = dark ? styles.getPropertyValue('--fg-dark').trim() : styles.getPropertyValue('--fg').trim();
+      const mid = dark ? styles.getPropertyValue('--mid-dark').trim() : styles.getPropertyValue('--mid').trim();
 
       const thin = Math.max(1, Math.round(1*scale));
       const thick = Math.max(2, Math.round(2*scale));
 
-      // SVG temizle
       while(grid.firstChild) grid.removeChild(grid.firstChild);
       grid.setAttribute('width', Math.ceil(gridPx));
       grid.setAttribute('height', Math.ceil(gridPx));
       grid.setAttribute('viewBox', `0 0 ${gridPx} ${gridPx}`);
 
-      // arka plan
       const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
       rect.setAttribute('x','0.5'); rect.setAttribute('y','0.5');
       rect.setAttribute('width', gridPx-1); rect.setAttribute('height', gridPx-1);
@@ -196,7 +191,7 @@
       grid.appendChild(rect);
 
       for(let i=0;i<=numLines;i++){
-        const p = Math.round(i*step)+0.5; // crisp lines
+        const p = Math.round(i*step)+0.5;
         const isThick = i%5===0; const col = isThick?fg:mid; const w = isThick?thick:thin;
         const v = document.createElementNS('http://www.w3.org/2000/svg','line');
         v.setAttribute('x1', p); v.setAttribute('y1', 0); v.setAttribute('x2', p); v.setAttribute('y2', gridPx);
@@ -229,29 +224,25 @@
       pxmmLbl.textContent = fmt(pxPerMm);
     }
 
-    // ----- Etkinlikler -----
     scaleRange.addEventListener('input', e=>{scale = clamp(e.target.value, .5, 4); scaleLbl.textContent = `${Number(scale).toFixed(2)}x`; redraw();});
     squareMm.addEventListener('input', e=>{squareSizeMm = clamp(e.target.value,1,20); redraw();});
     gridCm.addEventListener('input', e=>{gridSizeCm = clamp(e.target.value,5,20); redraw();});
     fixChk.addEventListener('change', e=>{showFixation = !!e.target.checked; redraw();});
     fixMm.addEventListener('input', e=>{fixationSizeMm = clamp(e.target.value,.5,4); redraw();});
 
-    // Mouse tekeri + Ctrl/Meta/Shift ile zoom
     grid.parentElement.addEventListener('wheel', (e)=>{
       if(e.ctrlKey||e.metaKey||e.shiftKey){ e.preventDefault();
         const dir = e.deltaY>0 ? -0.1 : 0.1; scale = clamp((+scale + dir).toFixed(2), .5, 4); scaleRange.value = scale; scaleLbl.textContent = `${Number(scale).toFixed(2)}x`; redraw();
       }
     }, {passive:false});
 
-    // Tema
     themeBtn.addEventListener('click', ()=>{
       const dark = !body.classList.contains('dark');
       body.classList.toggle('dark', dark);
-      themeBtn.textContent = dark ? 'Açık Tema' : 'Koyu Tema';
+      themeBtn.textContent = dark ? 'Light Theme' : 'Dark Theme';
       redraw();
     });
 
-    // PNG indirme
     pngBtn.addEventListener('click', ()=>{
       const serializer = new XMLSerializer();
       const src = serializer.serializeToString(grid);
@@ -264,7 +255,8 @@
         canvas.height = Math.ceil(+grid.getAttribute('height'));
         const ctx = canvas.getContext('2d');
         const dark = body.classList.contains('dark');
-        const bg = getComputedStyle(document.documentElement).getPropertyValue(dark?'--bg-dark':'--bg').trim();
+        const styles = getComputedStyle(document.documentElement);
+        const bg = styles.getPropertyValue(dark?'--bg-dark':'--bg').trim();
         ctx.fillStyle = bg; ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.drawImage(img,0,0);
         URL.revokeObjectURL(url);
@@ -280,31 +272,26 @@
       img.src = url;
     });
 
-    // Kalibrasyon modalı
+    const calBtn = document.getElementById('calBtn');
+    const CARD_WIDTH_MM = 85.6;
     calBtn.addEventListener('click', ()=>{openCal(true)});
-    calCancel.addEventListener('click', ()=>{openCal(false)});
+    document.getElementById('calCancel').addEventListener('click', ()=>{openCal(false)});
     function openCal(show){ calModal.classList.toggle('open', !!show); calModal.setAttribute('aria-hidden', show? 'false':'true'); }
-
-    const CARD_WIDTH_MM = 85.6; // ISO/IEC 7810 ID-1
     function updateCardBox(px){
       cardBox.style.width = px + 'px';
-      const h = Math.round((CARD_WIDTH_MM * 54 / 85.6) * (px / CARD_WIDTH_MM)); // yaklaşık yüksek.
+      const h = Math.round((CARD_WIDTH_MM * 54 / 85.6) * (px / CARD_WIDTH_MM));
       cardBox.style.height = h + 'px';
       cardPxLbl.textContent = px + 'px';
       calcPxmm.textContent = fmt(px / CARD_WIDTH_MM);
     }
-    updateCardBox(+cardRange.value);
-    cardRange.addEventListener('input', e=>{updateCardBox(+e.target.value)});
+    (function initCal(){
+      const startPx = 320; cardRange.value = startPx; updateCardBox(startPx);
+      cardRange.addEventListener('input', e=>{updateCardBox(+e.target.value)});
+      document.getElementById('calApply').addEventListener('click', ()=>{
+        const px = +cardRange.value; pxPerMm = px / CARD_WIDTH_MM; pxmmLbl.textContent = fmt(pxPerMm); openCal(false); redraw();
+      });
+    })();
 
-    calApply.addEventListener('click', ()=>{
-      const px = +cardRange.value;
-      pxPerMm = px / CARD_WIDTH_MM;
-      pxmmLbl.textContent = fmt(pxPerMm);
-      openCal(false);
-      redraw();
-    });
-
-    // İlk çizim
     redraw();
   })();
   </script>
