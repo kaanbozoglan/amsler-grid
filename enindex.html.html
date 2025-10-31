@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amsler Grid Test – Single File</title>
+  <style>
+    :root{
+      --bg:#ffffff; --fg:#111827; --mid:#6b7280; --border:#e5e7eb;
+      --bg-dark:#0b0b0c; --fg-dark:#f3f4f6; --mid-dark:#9ca3af; --border-dark:#27272a;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+    .container{max-width:1100px;margin:auto;padding:16px 20px}
+    header,footer{border-block-end:1px solid var(--border);padding-block:12px}
+    footer{border-top:1px solid var(--border);border-bottom:none;margin-top:24px;font-size:12px;opacity:.7}
+    .row{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:900px){.row{grid-template-columns:1fr 1fr}}
+    .card{border:1px solid var(--border);border-radius:16px;padding:16px}
+    .controls label{display:inline-block;width:120px;font-size:14px}
+    .controls .line{display:flex;align-items:center;gap:10px;margin:10px 0}
+    .controls input[type="number"]{width:100px;padding:6px 8px;border:1px solid var(--border);border-radius:10px;background:transparent;color:inherit}
+    .controls input[type="range"]{width:100%}
+    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:12px;background:transparent;color:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+    .btn:hover{background:rgba(0,0,0,.04)}
+    .btn.primary{background:#059669;border-color:#059669;color:#fff}
+    .btn.primary:hover{background:#047857}
+    .grid-wrap{display:flex;justify-content:center;align-items:center}
+    .frame{border:1px solid var(--border);border-radius:16px;padding:16px;overflow:auto}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:50}
+    .modal.open{display:flex}
+    .modal .panel{width:min(680px,92vw);border:1px solid var(--border);border-radius:16px;background:var(--bg);color:inherit;padding:16px}
+    body.dark{background:var(--bg-dark);color:var(--fg-dark)}
+    body.dark header, body.dark footer{border-color:var(--border-dark)}
+    body.dark .card, body.dark .frame, body.dark .modal .panel{border-color:var(--border-dark)}
+    body.dark .btn{border-color:var(--border-dark)}
+    body.dark .btn:hover{background:rgba(255,255,255,.06)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header style="display:flex;gap:12px;align-items:center;justify-content:space-between">
+      <h1 style="margin:0;font-weight:600;font-size:22px">Amsler Grid Test</h1>
+      <div style="display:flex;gap:8px">
+        <a href="../index.html" class="btn">Türkçe</a>
+        <button id="themeBtn" class="btn" aria-label="Toggle theme">Dark Theme</button>
+        <button id="calBtn" class="btn">Calibration</button>
+        <button id="pngBtn" class="btn">Download PNG</button>
+      </div>
+    </header>
+
+    <section class="row" style="padding-block:12px">
+      <div class="card controls">
+        <h2 style="margin:0 0 6px 0;font-size:16px">Display Controls</h2>
+        <div class="line">
+          <label>Zoom</label>
+          <input id="scaleRange" type="range" min="0.5" max="4" step="0.01" value="1" />
+          <div id="scaleLbl" style="width:56px;text-align:right;font-variant-numeric:tabular-nums">1.00x</div>
+        </div>
+        <div class="line">
+          <label>Square Size</label>
+          <input id="squareMm" type="number" min="1" max="20" step="0.5" value="5" />
+          <span>mm</span>
+        </div>
+        <div class="line">
+          <label>Grid Size</label>
+          <input id="gridCm" type="number" min="5" max="20" step="1" value="10" />
+          <span>cm</span>
+        </div>
+        <div class="line">
+          <label>Center Dot</label>
+          <input id="fixChk" type="checkbox" checked />
+          <input id="fixMm" type="number" min="0.5" max="4" step="0.1" value="1.5" />
+          <span>mm</span>
+        </div>
+        <div class="line" style="font-size:12px;opacity:.75">Calibration: <span id="pxmm">3.780</span> px/mm</div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 6px 0;font-size:16px">Usage Instructions (Quick)</h2>
+        <ol style="margin:6px 0 0 18px;line-height:1.6;font-size:14px">
+          <li>If needed, open <b>Calibration</b> and match the on-screen card to a real bank card.</li>
+          <li>Sit about <b>30–35 cm</b> from the screen.</li>
+          <li>Cover one eye and fixate on the <b>center dot</b> with the other.</li>
+          <li>Check for any <i>wavy, broken, or dark</i> lines.</li>
+          <li>Repeat for both eyes and consult an eye doctor if anything seems abnormal.</li>
+        </ol>
+        <p style="font-size:12px;opacity:.7">Disclaimer: This tool is educational and not a medical diagnosis.</p>
+      </div>
+    </section>
+
+    <section class="grid-wrap">
+      <div class="frame">
+        <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler grid"></svg>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Amsler Grid Tool — For educational use only.</footer>
+  </div>
+
+  <!-- Calibration Modal -->
+  <div id="calModal" class="modal" aria-hidden="true">
+    <div class="panel">
+      <h3 style="margin:0 0 6px 0">Screen Calibration</h3>
+      <p style="margin:0 0 10px 0;font-size:14px;opacity:.85">
+        Adjust the rectangle below to match the <b>exact width</b> of a real bank card.
+        A standard card is <b>85.6 mm</b> wide. This sets an accurate pixels-per-millimeter ratio.
+      </p>
+      <div class="line">
+        <label>Card Width</label>
+        <input id="cardRange" type="range" min="80" max="560" step="1" value="320" style="width:100%" />
+        <div id="cardPxLbl" style="width:72px;text-align:right;font-variant-numeric:tabular-nums">320px</div>
+      </div>
+      <div style="display:flex;justify-content:center;padding:16px 0">
+        <div id="cardBox" style="border:2px solid #10b981;border-radius:6px;background:rgba(16,185,129,.08);width:320px;height:202px"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px">
+        <div style="font-size:12px;opacity:.75">Computed px/mm: <span id="calcPxmm">3.740</span></div>
+        <div style="display:flex;gap:8px">
+          <button id="calCancel" class="btn">Cancel</button>
+          <button id="calApply" class="btn primary">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const DEFAULT_PX_PER_MM = 96/25.4; // ≈3.7795 px/mm
+    let pxPerMm = DEFAULT_PX_PER_MM, scale = 1, squareSizeMm = 5, gridSizeCm = 10;
+    let showFixation = true, fixationSizeMm = 1.5;
+
+    const body = document.body;
+    const grid = document.getElementById('grid');
+    const scaleRange = document.getElementById('scaleRange');
+    const scaleLbl = document.getElementById('scaleLbl');
+    const squareMm = document.getElementById('squareMm');
+    const gridCm = document.getElementById('gridCm');
+    const fixChk = document.getElementById('fixChk');
+    const fixMm = document.getElementById('fixMm');
+    const pxmmLbl = document.getElementById('pxmm');
+    const pngBtn = document.getElementById('pngBtn');
+    const themeBtn = document.getElementById('themeBtn');
+    const year = document.getElementById('year');
+
+    const calModal = document.getElementById('calModal');
+    const calBtn = document.getElementById('calBtn');
+    const calCancel = document.getElementById('calCancel');
+    const calApply = document.getElementById('calApply');
+    const cardRange = document.getElementById('cardRange');
+    const cardPxLbl = document.getElementById('cardPxLbl');
+    const cardBox = document.getElementById('cardBox');
+    const calcPxmm = document.getElementById('calcPxmm');
+
+    year.textContent = new Date().getFullYear();
+
+    const clamp = (v,min,max)=>Math.min(max,Math.max(min,Number(v)||0));
+    const fmt = (n)=>Number(n).toFixed(3);
+
+    function redraw(){
+      const gridSizeMm = gridSizeCm*10;
+      const gridPx = gridSizeMm*pxPerMm*scale;
+      const step = squareSizeMm*pxPerMm*scale;
+      const numLines = Math.round(gridSizeMm/squareSizeMm);
+
+      const styles = getComputedStyle(document.documentElement);
+      const dark = body.classList.contains('dark');
+      const bg = styles.getPropertyValue(dark?'--bg-dark':'--bg').trim();
+      const fg = styles.getPropertyValue(dark?'--fg-dark':'--fg').trim();
+      const mid = styles.getPropertyValue(dark?'--mid-dark':'--mid').trim();
+
+      const thin = Math.max(1, Math.round(1*scale));
+      const thick = Math.max(2, Math.round(2*scale));
+
+      while(grid.firstChild) grid.removeChild(grid.firstChild);
+      grid.setAttribute('width', Math.ceil(gridPx));
+      grid.setAttribute('height', Math.ceil(gridPx));
+      grid.setAttribute('viewBox', `0 0 ${gridPx} ${gridPx}`);
+
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x','0.5'); rect.setAttribute('y','0.5');
+      rect.setAttribute('width', gridPx-1); rect.setAttribute('height', gridPx-1);
+      rect.setAttribute('fill','none'); rect.setAttribute('stroke', fg); rect.setAttribute('stroke-width', Math.max(2, thick));
+      grid.style.background = bg;
+      grid.appendChild(rect);
+
+      for(let i=0;i<=numLines;i++){
+        const p = Math.round(i*step)+0.5;
+        const isThick = i%5===0; const col = isThick?fg:mid; const w = isThick?thick:thin;
+        const v = document.createElementNS('http://www.w3.org/2000/svg','line');
+        v.setAttribute('x1', p); v.setAttribute('y1', 0); v.setAttribute('x2', p); v.setAttribute('y2', gridPx);
+        v.setAttribute('stroke', col); v.setAttribute('stroke-width', w);
+        grid.appendChild(v);
+        const h = document.createElementNS('http://www.w3.org/2000/svg','line');
+        h.setAttribute('x1', 0); h.setAttribute('y1', p); h.setAttribute('x2', gridPx); h.setAttribute('y2', p);
+        h.setAttribute('stroke', col); h.setAttribute('stroke-width', w);
+        grid.appendChild(h);
+      }
+
+      const center = Math.round(gridPx/2)+0.5;
+      const cx1 = document.createElementNS('http://www.w3.org/2000/svg','line');
+      cx1.setAttribute('x1', center); cx1.setAttribute('y1', 0); cx1.setAttribute('x2', center); cx1.setAttribute('y2', gridPx);
+      cx1.setAttribute('stroke', fg); cx1.setAttribute('stroke-width', Math.max(2,thick));
+      grid.appendChild(cx1);
+      const cy1 = document.createElementNS('http://www.w3.org/2000/svg','line');
+      cy1.setAttribute('x1', 0); cy1.setAttribute('y1', center); cy1.setAttribute('x2', gridPx); cy1.setAttribute('y2', center);
+      cy1.setAttribute('stroke', fg); cy1.setAttribute('stroke-width', Math.max(2,thick));
+      grid.appendChild(cy1);
+
+      if(showFixation){
+        const r = (fixationSizeMm/2)*pxPerMm*scale;
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('cx', center); c.setAttribute('cy', center); c.setAttribute('r', r);
+        c.setAttribute('fill', fg);
+        grid.appendChild(c);
+      }
+
+      pxmmLbl.textContent = fmt(pxPerMm);
+    }
+
+    scaleRange.addEventListener('input', e=>{scale = clamp(e.target.value, .5, 4); scaleLbl.textContent = `${Number(scale).toFixed(2)}x`; redraw();});
+    squareMm.addEventListener('input', e=>{squareSizeMm = clamp(e.target.value,1,20); redraw();});
+    gridCm.addEventListener('input', e=>{gridSizeCm = clamp(e.target.value,5,20); redraw();});
+    fixChk.addEventListener('change', e=>{showFixation = !!e.target.checked; redraw();});
+    fixMm.addEventListener('input', e=>{fixationSizeMm = clamp(e.target.value,.5,4); redraw();});
+
+    grid.parentElement.addEventListener('wheel', (e)=>{
+      if(e.ctrlKey||e.metaKey||e.shiftKey){ e.preventDefault();
+        const dir = e.deltaY>0 ? -0.1 : 0.1;
+        scale = clamp((+scale + dir).toFixed(2), .5, 4);
+        scaleRange.value = scale; scaleLbl.textContent = `${Number(scale).toFixed(2)}x`;
+        redraw();
+      }
+    }, {passive:false});
+
+    themeBtn.addEventListener('click', ()=>{
+      const dark = !body.classList.contains('dark');
+      body.classList.toggle('dark', dark);
+      themeBtn.textContent = dark ? 'Light Theme' : 'Dark Theme';
+      redraw();
+    });
+
+    pngBtn.addEventListener('click', ()=>{
+      const serializer = new XMLSerializer();
+      const src = serializer.serializeToString(grid);
+      const svgBlob = new Blob([src], {type:'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = ()=>{
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.ceil(+grid.getAttribute('width'));
+        canvas.height = Math.ceil(+grid.getAttribute('height'));
+        const ctx = canvas.getContext('2d');
+        const styles = getComputedStyle(document.documentElement);
+        const dark = body.classList.contains('dark');
+        const bg = styles.getPropertyValue(dark?'--bg-dark':'--bg').trim();
+        ctx.fillStyle = bg; ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0);
+        URL.revokeObjectURL(url);
+        canvas.toBlob((blob)=>{
+          if(!blob) return;
+          const a = document.createElement('a');
+          const theme = body.classList.contains('dark') ? 'dark' : 'light';
+          a.href = URL.createObjectURL(blob);
+          a.download = `amsler-${gridCm.value}cm-${squareMm.value}mm-${theme}.png`;
+          a.click();
+        }, 'image/png');
+      };
+      img.src = url;
+    });
+
+    // Calibration
+    const CARD_WIDTH_MM = 85.6; // ISO/IEC 7810 ID-1
+    function openCal(show){ calModal.classList.toggle('open', !!show); calModal.setAttribute('aria-hidden', show? 'false':'true'); }
+    function updateCardBox(px){
+      cardBox.style.width = px + 'px';
+      const h = Math.round((CARD_WIDTH_MM * 54 / 85.6) * (px / CARD_WIDTH_MM));
+      cardBox.style.height = h + 'px';
+      cardPxLbl.textContent = px + 'px';
+      calcPxmm.textContent = fmt(px / CARD_WIDTH_MM);
+    }
+    calBtn.addEventListener('click', ()=>{openCal(true)});
+    calCancel.addEventListener('click', ()=>{openCal(false)});
+    cardRange.addEventListener('input', e=>{updateCardBox(+e.target.value)});
+    calApply.addEventListener('click', ()=>{
+      const px = +cardRange.value;
+      pxPerMm = px / CARD_WIDTH_MM;
+      pxmmLbl.textContent = fmt(pxPerMm);
+      openCal(false);
+      redraw();
+    });
+    updateCardBox(+cardRange.value || 320);
+
+    redraw();
+  })();
+  </script>
+</body>
+</html>
