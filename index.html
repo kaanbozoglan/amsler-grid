@@ -240,6 +240,28 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   /* Mobilde header’daki primary butonu gizlemek istersen: */
   header .actions .primary{ display:none; }
 }
+
+/* === Focus Mode: sadece test alanı görünsün === */
+body.focus-test header,
+body.focus-test .row,
+body.focus-test footer,
+body.focus-test .sticky-cta { display: none !important; }
+
+body.focus-test .grid-wrap{
+  position: fixed; inset: 0;
+  display:flex; align-items:center; justify-content:center;
+  padding: min(4vw, 24px);
+  background: var(--bg);
+  z-index: 100;
+}
+.focus-exit{
+  position: fixed; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right));
+  z-index: 110;
+  background: var(--card); color: inherit; border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 14px; font-weight: 700; text-decoration: none;
+  box-shadow: var(--shadow-soft);
+}
+.focus-exit:hover{ transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,.06); }
   </style>
 </head>
 <body>
@@ -267,7 +289,7 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
         <button id="calBtn" class="btn">Kalibrasyon</button>
         <button id="pngBtn" class="btn">PNG İndir</button>
         <!-- ✅ Primary CTA -->
-        <a href="#test" class="btn primary" aria-label="Testi Başlat">Testi Başlat</a>
+        <a href="#test" class="btn primary" aria-label="Testi Başlat" data-start-test>Testi Başlat</a>
       </div>
     </header>
 
@@ -313,6 +335,8 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
 
     <!-- ⬇️ Anchor: id="test" -->
     <section class="grid-wrap" id="test">
+      <!-- Odak modunda görünen çıkış -->
+      <a href="#" class="focus-exit btn" id="exitFocus" style="display:none">Çık</a>
       <div class="frame">
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler ızgarası"></svg>
       </div>
@@ -350,7 +374,7 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   </div>
 
   <!-- ✅ Mobile Sticky CTA -->
-  <a href="#test" class="sticky-cta" aria-label="Testi Başlat">Testi Başlat</a>
+  <a href="#test" class="sticky-cta" aria-label="Testi Başlat" data-start-test>Testi Başlat</a>
 
   <script>
 /* ===================== SAĞLAM JS (DOM hazır + defansif) ===================== */
@@ -573,6 +597,32 @@ document.addEventListener('DOMContentLoaded', () => {
   updateRangeFill(scaleRange);
   updateRangeFill(cardRange);
   redraw(); // İlk çizim
+
+  /* === Focus Mode (Sadece test alanı) === */
+  const startTestLinks = document.querySelectorAll('[data-start-test]');
+  const exitFocusBtn = document.getElementById('exitFocus');
+
+  function enterFocusMode(){
+    document.body.classList.add('focus-test');
+    if (exitFocusBtn) exitFocusBtn.style.display = 'inline-flex';
+    const gridWrap = document.getElementById('test');
+    if (gridWrap) { gridWrap.setAttribute('tabindex','-1'); gridWrap.focus(); }
+    // İstersen: başlangıç yakınlaştırma
+    // if (scaleRange) { scaleRange.value = 1.2; updateRangeFill(scaleRange); scale = 1.2; redraw(); }
+  }
+  function exitFocusMode(){
+    document.body.classList.remove('focus-test');
+    if (exitFocusBtn) exitFocusBtn.style.display = 'none';
+  }
+  startTestLinks.forEach(el=>{
+    el.addEventListener('click', (e)=>{ e.preventDefault(); enterFocusMode(); });
+  });
+  if (exitFocusBtn){
+    exitFocusBtn.addEventListener('click', (e)=>{ e.preventDefault(); exitFocusMode(); });
+  }
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape' && document.body.classList.contains('focus-test')) exitFocusMode();
+  });
 });
   </script>
 </body>
