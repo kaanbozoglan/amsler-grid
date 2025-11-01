@@ -171,7 +171,7 @@ input[type="range"]::-webkit-slider-thumb{
 .brand-name{font-weight:800;letter-spacing:.2px;font-size:20px;line-height:1}
 .brand-accent{color:var(--primary)}
 .brand:hover .logo{transform:translateY(-1px) scale(1.02);filter:drop-shadow(0 6px 16px rgba(43,111,255,.18))}
-@media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px)}
+@media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px}}
 
 /* ===================== Mobile enhancements ===================== */
 .container{
@@ -230,6 +230,28 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   .sticky-cta{ display:inline-flex; }
   header .actions .primary{ display:none; }
 }
+
+/* === Focus Mode: only test visible === */
+body.focus-test header,
+body.focus-test .row,
+body.focus-test footer,
+body.focus-test .sticky-cta { display: none !important; }
+
+body.focus-test .grid-wrap{
+  position: fixed; inset: 0;
+  display:flex; align-items:center; justify-content:center;
+  padding: min(4vw, 24px);
+  background: var(--bg);
+  z-index: 100;
+}
+.focus-exit{
+  position: fixed; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right));
+  z-index: 110;
+  background: var(--card); color: inherit; border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 14px; font-weight: 700; text-decoration: none;
+  box-shadow: var(--shadow-soft);
+}
+.focus-exit:hover{ transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,.06); }
   </style>
 </head>
 <body>
@@ -257,7 +279,7 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
         <button id="calBtn" class="btn">Calibration</button>
         <button id="pngBtn" class="btn">Download PNG</button>
         <!-- ✅ Primary CTA -->
-        <a href="#test" class="btn primary" aria-label="Start the test">Start Test</a>
+        <a href="#test" class="btn primary" aria-label="Start the test" data-start-test>Start Test</a>
       </div>
     </header>
 
@@ -303,6 +325,8 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
 
     <!-- ⬇️ Anchor for easy jump -->
     <section class="grid-wrap" id="test">
+      <!-- Exit button visible in focus mode -->
+      <a href="#" class="focus-exit btn" id="exitFocus" style="display:none">Exit</a>
       <div class="frame">
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler grid"></svg>
       </div>
@@ -340,7 +364,7 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   </div>
 
   <!-- ✅ Mobile Sticky CTA -->
-  <a href="#test" class="sticky-cta" aria-label="Start Test">Start Test</a>
+  <a href="#test" class="sticky-cta" aria-label="Start Test" data-start-test>Start Test</a>
 
   <script>
 /* ===================== Robust JS (DOMContentLoaded + defensive) ===================== */
@@ -563,6 +587,32 @@ document.addEventListener('DOMContentLoaded', () => {
   updateRangeFill(scaleRange);
   updateRangeFill(cardRange);
   redraw(); // First draw
+
+  /* === Focus Mode (Only test area visible) === */
+  const startTestLinks = document.querySelectorAll('[data-start-test]');
+  const exitFocusBtn = document.getElementById('exitFocus');
+
+  function enterFocusMode(){
+    document.body.classList.add('focus-test');
+    if (exitFocusBtn) exitFocusBtn.style.display = 'inline-flex';
+    const gridWrap = document.getElementById('test');
+    if (gridWrap) { gridWrap.setAttribute('tabindex','-1'); gridWrap.focus(); }
+    // Optional: initial zoom
+    // if (scaleRange) { scaleRange.value = 1.2; updateRangeFill(scaleRange); scale = 1.2; redraw(); }
+  }
+  function exitFocusMode(){
+    document.body.classList.remove('focus-test');
+    if (exitFocusBtn) exitFocusBtn.style.display = 'none';
+  }
+  startTestLinks.forEach(el=>{
+    el.addEventListener('click', (e)=>{ e.preventDefault(); enterFocusMode(); });
+  });
+  if (exitFocusBtn){
+    exitFocusBtn.addEventListener('click', (e)=>{ e.preventDefault(); exitFocusMode(); });
+  }
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape' && document.body.classList.contains('focus-test')) exitFocusMode();
+  });
 });
   </script>
 </body>
