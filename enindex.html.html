@@ -5,44 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Amsler Grid Test – Single File</title>
   <style>
-    :root{
-      --bg:#ffffff; --fg:#111827; --mid:#6b7280; --border:#e5e7eb;
-      --bg-dark:#0b0b0c; --fg-dark:#f3f4f6; --mid-dark:#9ca3af; --border-dark:#27272a;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg)}
-    .container{max-width:1100px;margin:auto;padding:16px 20px}
-    header,footer{border-block-end:1px solid var(--border);padding-block:12px}
-    footer{border-top:1px solid var(--border);border-bottom:none;margin-top:24px;font-size:12px;opacity:.7}
-    .row{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:900px){.row{grid-template-columns:1fr 1fr}}
-    .card{border:1px solid var(--border);border-radius:16px;padding:16px}
-    .controls label{display:inline-block;width:120px;font-size:14px}
-    .controls .line{display:flex;align-items:center;gap:10px;margin:10px 0}
-    .controls input[type="number"]{width:100px;padding:6px 8px;border:1px solid var(--border);border-radius:10px;background:transparent;color:inherit}
-    .controls input[type="range"]{width:100%}
-    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:12px;background:transparent;color:inherit;cursor:pointer;text-decoration:none;display:inline-block}
-    .btn:hover{background:rgba(0,0,0,.04)}
-    .btn.primary{background:#059669;border-color:#059669;color:#fff}
-    .btn.primary:hover{background:#047857}
-    .grid-wrap{display:flex;justify-content:center;align-items:center}
-    .frame{border:1px solid var(--border);border-radius:16px;padding:16px;overflow:auto}
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:50}
-    .modal.open{display:flex}
-    .modal .panel{width:min(680px,92vw);border:1px solid var(--border);border-radius:16px;background:var(--bg);color:inherit;padding:16px}
-    body.dark{background:var(--bg-dark);color:var(--fg-dark)}
-    body.dark header, body.dark footer{border-color:var(--border-dark)}
-    body.dark .card, body.dark .frame, body.dark .modal .panel{border-color:var(--border-dark)}
-    body.dark .btn{border-color:var(--border-dark)}
-    body.dark .btn:hover{background:rgba(255,255,255,.06)}
+/* ===================== Modern Theme & UI ===================== */
+:root{
+  --bg:#f7f7fb; --card:#ffffff; --fg:#0f172a; --muted:#6b7280;
+  --primary:#2b6fff; --accent:#10b981; --border:#e5e7eb; --ring: rgba(43,111,255,.35);
+  --radius:16px; --radius-sm:12px;
+  --shadow: 0 10px 30px rgba(15,23,42,.06), 0 2px 10px rgba(15,23,42,.04);
+  --shadow-soft: 0 4px 14px rgba(15,23,42,.06);
+  --transition: 180ms cubic-bezier(.2,.6,.2,1);
+  /* Legacy var mapping for JS compatibility */
+  --mid: var(--muted);
+  --bg-dark:#0b1220; --card-dark:#111a2b; --fg-dark:#e5e7eb; --mid-dark:#9aa3b2; --border-dark:#22324f;
+}
+body.dark{
+  --bg:#0b1220; --card:#111a2b; --fg:#e5e7eb; --muted:#9aa3b2;
+  --primary:#5a8bff; --accent:#15d2c4; --border:#22324f; --ring: rgba(90,139,255,.35);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg)}
+.container{max-width:1100px;margin:auto;padding:16px 20px}
+
+/* Header & Footer */
+header,footer{padding-block:12px}
+header{border-bottom:1px solid var(--border)}
+footer{border-top:1px solid var(--border);margin-top:24px;font-size:12px;color:var(--muted)}
+
+/* Grid layout */
+.row{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:900px){.row{grid-template-columns:1fr 1fr}}
+
+/* Cards */
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px; box-shadow:var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover{transform:translateY(-1px);box-shadow:0 16px 40px rgba(0,0,0,.07)}
+
+/* Controls */
+.controls h2{margin:0 0 8px 0;font-size:16px}
+.controls .line{display:flex;align-items:center;gap:10px;margin:10px 0}
+.controls label{min-width:120px;font-size:13px;color:var(--muted)}
+.controls input[type="number"], .controls input[type="text"]{
+  width:110px;padding:8px 10px;border:1px solid var(--border);border-radius:12px;background:transparent;color:inherit;
+  transition:border-color var(--transition),box-shadow var(--transition);
+}
+.controls input[type="number"]:focus, .controls input[type="text"]:focus{
+  outline:none;border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)
+}
+
+/* Range */
+input[type="range"]{
+  -webkit-appearance:none;width:100%;height:10px;border-radius:999px;outline:none;
+  background:
+    linear-gradient(to right,var(--primary) 0%,var(--primary) var(--_val,50%),transparent var(--_val,50%)) no-repeat,
+    color-mix(in hsl,var(--card),var(--border) 60%);
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:var(--card);border:2px solid var(--primary);
+  box-shadow:0 2px 8px rgba(43,111,255,.2);cursor:pointer
+}
+
+/* Checkbox */
+.controls input[type="checkbox"]{
+  appearance:none;width:18px;height:18px;border-radius:6px;border:1px solid var(--border);
+  background:var(--card);display:grid;place-items:center;cursor:pointer;transition:all var(--transition)
+}
+.controls input[type="checkbox"]::after{
+  content:"";width:10px;height:10px;border-radius:3px;background:var(--primary);transform:scale(0);transition:transform var(--transition)
+}
+.controls input[type="checkbox"]:checked{border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
+.controls input[type="checkbox"]:checked::after{transform:scale(1)}
+
+/* Buttons */
+.btn{
+  padding:9px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:inherit;cursor:pointer;
+  font-weight:600;box-shadow:var(--shadow-soft);
+  transition:transform var(--transition),box-shadow var(--transition);
+  text-decoration:none;display:inline-block;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.06)}
+.btn.primary{background:var(--primary);border-color:transparent;color:#fff}
+
+/* Grid stage */
+.grid-wrap{display:flex;justify-content:center;align-items:center}
+.frame{
+  border:1px solid var(--border);border-radius:var(--radius);padding:16px;overflow:auto;
+  background:radial-gradient(1200px 1200px at 50% 0%,rgba(43,111,255,.06),transparent 50%),var(--card);
+  box-shadow:var(--shadow);
+}
+#grid{
+  width:min(560px,92vw);height:auto;background:#fff;border-radius:10px;
+  border:2px solid color-mix(in hsl,var(--fg),#fff 70%);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.04),0 12px 30px rgba(0,0,0,.08)
+}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:50}
+.modal.open{display:flex}
+.modal .panel{
+  width:min(680px,92vw);border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--card);padding:16px;box-shadow:var(--shadow)
+}
+#cardBox{border:2px solid var(--accent);background:color-mix(in hsl,var(--accent),#fff 85%);border-radius:8px}
+
+/* --- Brand / Logo --- */
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.logo{width:34px;height:34px;flex:0 0 auto;color:var(--primary);filter:drop-shadow(0 2px 8px rgba(43,111,255,.15));transition:transform var(--transition),filter var(--transition)}
+.brand-name{font-weight:800;letter-spacing:.2px;font-size:20px;line-height:1}
+.brand-accent{color:var(--primary)}
+.brand:hover .logo{transform:translateY(-1px) scale(1.02);filter:drop-shadow(0 6px 16px rgba(43,111,255,.18))}
+@media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px}}
   </style>
 </head>
 <body>
   <div class="container">
     <header style="display:flex;gap:12px;align-items:center;justify-content:space-between">
-      <h1 style="margin:0;font-weight:600;font-size:22px">Amsler Grid Test</h1>
+      <!-- LOGO + Wordmark -->
+      <a class="brand" href="#" aria-label="Amsler Grid">
+        <svg class="logo" viewBox="0 0 96 96" role="img" aria-hidden="true">
+          <defs>
+            <pattern id="amslerGridPattern" width="12" height="12" patternUnits="userSpaceOnUse">
+              <path d="M12 0H0M0 0V12" fill="none" stroke="currentColor" opacity=".35" stroke-width="1"/>
+            </pattern>
+          </defs>
+        <rect x="2" y="2" width="92" height="92" rx="12" fill="url(#amslerGridPattern)" stroke="currentColor" stroke-width="3"/>
+        <path d="M48 4v88M4 48h88" stroke="currentColor" stroke-width="3"/>
+        <circle cx="48" cy="48" r="3.6" fill="currentColor"/>
+        </svg>
+        <span class="brand-name">Amsler<span class="brand-accent">Grid</span></span>
+      </a>
+
       <div style="display:flex;gap:8px">
-        <a href="index.html" class="btn">Türkçe</a>
+        <a href="index.html" class="btn" aria-label="Switch to Turkish">Türkçe</a>
         <button id="themeBtn" class="btn" aria-label="Toggle theme">Dark Theme</button>
         <button id="calBtn" class="btn">Calibration</button>
         <button id="pngBtn" class="btn">Download PNG</button>
@@ -51,7 +148,7 @@
 
     <section class="row" style="padding-block:12px">
       <div class="card controls">
-        <h2 style="margin:0 0 6px 0;font-size:16px">Display Controls</h2>
+        <h2 style="margin:0 0 8px 0;font-size:16px">Display Controls</h2>
         <div class="line">
           <label>Zoom</label>
           <input id="scaleRange" type="range" min="0.5" max="4" step="0.01" value="1" />
@@ -73,11 +170,11 @@
           <input id="fixMm" type="number" min="0.5" max="4" step="0.1" value="1.5" />
           <span>mm</span>
         </div>
-        <div class="line" style="font-size:12px;opacity:.75">Calibration: <span id="pxmm">3.780</span> px/mm</div>
+        <div class="line" style="font-size:12px;color:var(--muted)">Calibration: <span id="pxmm">3.780</span> px/mm</div>
       </div>
 
       <div class="card">
-        <h2 style="margin:0 0 6px 0;font-size:16px">Usage Instructions (Quick)</h2>
+        <h2 style="margin:0 0 8px 0;font-size:16px">Usage Instructions (Quick)</h2>
         <ol style="margin:6px 0 0 18px;line-height:1.6;font-size:14px">
           <li>If needed, open <b>Calibration</b> and match the on-screen card to a real bank card.</li>
           <li>Sit about <b>30–35 cm</b> from the screen.</li>
@@ -85,7 +182,7 @@
           <li>Check for any <i>wavy, broken, or dark</i> lines.</li>
           <li>Repeat for both eyes and consult an eye doctor if anything seems abnormal.</li>
         </ol>
-        <p style="font-size:12px;opacity:.7">Disclaimer: This tool is educational and not a medical diagnosis.</p>
+        <p style="font-size:12px;color:var(--muted)">Disclaimer: This tool is educational and not a medical diagnosis.</p>
       </div>
     </section>
 
@@ -95,7 +192,9 @@
       </div>
     </section>
 
-    <footer>© <span id="year"></span> Amsler Grid Tool — For educational use only.</footer>
+    <footer>
+      © <span id="year"></span> Amsler Grid Tool — For educational use only.
+    </footer>
   </div>
 
   <!-- Calibration Modal -->
@@ -112,10 +211,10 @@
         <div id="cardPxLbl" style="width:72px;text-align:right;font-variant-numeric:tabular-nums">320px</div>
       </div>
       <div style="display:flex;justify-content:center;padding:16px 0">
-        <div id="cardBox" style="border:2px solid #10b981;border-radius:6px;background:rgba(16,185,129,.08);width:320px;height:202px"></div>
+        <div id="cardBox" style="width:320px;height:202px"></div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px">
-        <div style="font-size:12px;opacity:.75">Computed px/mm: <span id="calcPxmm">3.740</span></div>
+        <div style="font-size:12px;color:var(--muted)">Computed px/mm: <span id="calcPxmm">3.740</span></div>
         <div style="display:flex;gap:8px">
           <button id="calCancel" class="btn">Cancel</button>
           <button id="calApply" class="btn primary">Apply</button>
@@ -125,175 +224,227 @@
   </div>
 
   <script>
-  (function(){
-    const DEFAULT_PX_PER_MM = 96/25.4; // ≈3.7795 px/mm
-    let pxPerMm = DEFAULT_PX_PER_MM, scale = 1, squareSizeMm = 5, gridSizeCm = 10;
-    let showFixation = true, fixationSizeMm = 1.5;
+/* ===================== Robust JS (DOMContentLoaded + defensive) ===================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const DEFAULT_PX_PER_MM = 96 / 25.4; // ≈3.7795
+  let pxPerMm = DEFAULT_PX_PER_MM;
+  let scale = 1;
+  let squareSizeMm = 5;   // mm
+  let gridSizeCm   = 10;  // cm
+  let showFixation = true;
+  let fixationSizeMm = 1.5;
 
-    const body = document.body;
-    const grid = document.getElementById('grid');
-    const scaleRange = document.getElementById('scaleRange');
-    const scaleLbl = document.getElementById('scaleLbl');
-    const squareMm = document.getElementById('squareMm');
-    const gridCm = document.getElementById('gridCm');
-    const fixChk = document.getElementById('fixChk');
-    const fixMm = document.getElementById('fixMm');
-    const pxmmLbl = document.getElementById('pxmm');
-    const pngBtn = document.getElementById('pngBtn');
-    const themeBtn = document.getElementById('themeBtn');
-    const year = document.getElementById('year');
+  const q = (s)=>document.querySelector(s);
+  const body = document.body;
 
-    const calModal = document.getElementById('calModal');
-    const calBtn = document.getElementById('calBtn');
-    const calCancel = document.getElementById('calCancel');
-    const calApply = document.getElementById('calApply');
-    const cardRange = document.getElementById('cardRange');
-    const cardPxLbl = document.getElementById('cardPxLbl');
-    const cardBox = document.getElementById('cardBox');
-    const calcPxmm = document.getElementById('calcPxmm');
+  const grid      = q('#grid');
+  const scaleRange= q('#scaleRange');
+  const scaleLbl  = q('#scaleLbl');
+  const squareMmI = q('#squareMm');
+  const gridCmI   = q('#gridCm');
+  const fixChk    = q('#fixChk');
+  const fixMmI    = q('#fixMm');
+  const pxmmLbl   = q('#pxmm');
+  const pngBtn    = q('#pngBtn');
+  const themeBtn  = q('#themeBtn');
+  const yearEl    = q('#year');
 
-    year.textContent = new Date().getFullYear();
+  const calModal  = q('#calModal');
+  const calBtn    = q('#calBtn');
+  const calCancel = q('#calCancel');
+  const calApply  = q('#calApply');
+  const cardRange = q('#cardRange');
+  const cardPxLbl = q('#cardPxLbl');
+  const cardBox   = q('#cardBox');
+  const calcPxmm  = q('#calcPxmm');
 
-    const clamp = (v,min,max)=>Math.min(max,Math.max(min,Number(v)||0));
-    const fmt = (n)=>Number(n).toFixed(3);
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  if (!grid) { console.warn('SVG #grid not found'); return; }
 
-    function redraw(){
-      const gridSizeMm = gridSizeCm*10;
-      const gridPx = gridSizeMm*pxPerMm*scale;
-      const step = squareSizeMm*pxPerMm*scale;
-      const numLines = Math.round(gridSizeMm/squareSizeMm);
+  const clamp=(v,min,max)=>Math.min(max,Math.max(min,Number(v)||0));
+  const fmt=(n)=>Number(n).toFixed(3);
+  const updateRangeFill=(el)=>{
+    if(!el) return;
+    const min=Number(el.min??0), max=Number(el.max??100), val=Number(el.value??(min+max)/2);
+    el.style.setProperty('--_val', ((val-min)/(max-min))*100 + '%');
+  };
 
-      const styles = getComputedStyle(document.documentElement);
-      const dark = body.classList.contains('dark');
-      const bg = styles.getPropertyValue(dark?'--bg-dark':'--bg').trim();
-      const fg = styles.getPropertyValue(dark?'--fg-dark':'--fg').trim();
-      const mid = styles.getPropertyValue(dark?'--mid-dark':'--mid').trim();
+  function redraw(){
+    if (squareMmI) squareSizeMm = clamp(squareMmI.value,1,20) || 5;
+    if (gridCmI)   gridSizeCm   = clamp(gridCmI.value,5,20) || 10;
+    if (fixMmI)    fixationSizeMm = clamp(fixMmI.value,.5,4) || 1.5;
+    if (fixChk)    showFixation = !!fixChk.checked;
 
-      const thin = Math.max(1, Math.round(1*scale));
-      const thick = Math.max(2, Math.round(2*scale));
+    const gridSizeMm = gridSizeCm*10;
+    let gridPx = gridSizeMm*pxPerMm*scale;
+    if (!isFinite(gridPx) || gridPx < 10) gridPx = 380;
 
-      while(grid.firstChild) grid.removeChild(grid.firstChild);
-      grid.setAttribute('width', Math.ceil(gridPx));
-      grid.setAttribute('height', Math.ceil(gridPx));
-      grid.setAttribute('viewBox', `0 0 ${gridPx} ${gridPx}`);
+    const dark = body.classList.contains('dark');
+    const rs = getComputedStyle(document.documentElement);
+    const bg  = rs.getPropertyValue(dark?'--bg-dark':'--bg').trim() || '#fff';
+    const fg  = rs.getPropertyValue(dark?'--fg-dark':'--fg').trim() || '#111';
+    const mid = rs.getPropertyValue(dark?'--mid-dark':'--mid').trim() || '#6b7280';
 
-      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
-      rect.setAttribute('x','0.5'); rect.setAttribute('y','0.5');
-      rect.setAttribute('width', gridPx-1); rect.setAttribute('height', gridPx-1);
-      rect.setAttribute('fill','none'); rect.setAttribute('stroke', fg); rect.setAttribute('stroke-width', Math.max(2, thick));
-      grid.style.background = bg;
-      grid.appendChild(rect);
+    const thin  = Math.max(1, Math.round(1*scale));
+    const thick = Math.max(2, Math.round(2*scale));
 
-      for(let i=0;i<=numLines;i++){
-        const p = Math.round(i*step)+0.5;
-        const isThick = i%5===0; const col = isThick?fg:mid; const w = isThick?thick:thin;
-        const v = document.createElementNS('http://www.w3.org/2000/svg','line');
-        v.setAttribute('x1', p); v.setAttribute('y1', 0); v.setAttribute('x2', p); v.setAttribute('y2', gridPx);
-        v.setAttribute('stroke', col); v.setAttribute('stroke-width', w);
-        grid.appendChild(v);
-        const h = document.createElementNS('http://www.w3.org/2000/svg','line');
-        h.setAttribute('x1', 0); h.setAttribute('y1', p); h.setAttribute('x2', gridPx); h.setAttribute('y2', p);
-        h.setAttribute('stroke', col); h.setAttribute('stroke-width', w);
-        grid.appendChild(h);
-      }
+    while(grid.firstChild) grid.removeChild(grid.firstChild);
+    grid.setAttribute('width',  Math.ceil(gridPx));
+    grid.setAttribute('height', Math.ceil(gridPx));
+    grid.setAttribute('viewBox', `0 0 ${gridPx} ${gridPx}`);
+    grid.style.background = bg;
 
-      const center = Math.round(gridPx/2)+0.5;
-      const cx1 = document.createElementNS('http://www.w3.org/2000/svg','line');
-      cx1.setAttribute('x1', center); cx1.setAttribute('y1', 0); cx1.setAttribute('x2', center); cx1.setAttribute('y2', gridPx);
-      cx1.setAttribute('stroke', fg); cx1.setAttribute('stroke-width', Math.max(2,thick));
-      grid.appendChild(cx1);
-      const cy1 = document.createElementNS('http://www.w3.org/2000/svg','line');
-      cy1.setAttribute('x1', 0); cy1.setAttribute('y1', center); cy1.setAttribute('x2', gridPx); cy1.setAttribute('y2', center);
-      cy1.setAttribute('stroke', fg); cy1.setAttribute('stroke-width', Math.max(2,thick));
-      grid.appendChild(cy1);
+    const rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x','0.5');rect.setAttribute('y','0.5');
+    rect.setAttribute('width',gridPx-1);rect.setAttribute('height',gridPx-1);
+    rect.setAttribute('fill','none');rect.setAttribute('stroke',fg);
+    rect.setAttribute('stroke-width',Math.max(2,thick));
+    grid.appendChild(rect);
 
-      if(showFixation){
-        const r = (fixationSizeMm/2)*pxPerMm*scale;
-        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-        c.setAttribute('cx', center); c.setAttribute('cy', center); c.setAttribute('r', r);
-        c.setAttribute('fill', fg);
-        grid.appendChild(c);
-      }
+    const step = squareSizeMm*pxPerMm*scale || (5*pxPerMm*scale);
+    const numLines = Math.round((gridSizeMm||100)/(squareSizeMm||5));
 
-      pxmmLbl.textContent = fmt(pxPerMm);
+    for(let i=0;i<=numLines;i++){
+      const p = Math.round(i*step)+0.5;
+      const isThick = i%5===0; const col=isThick?fg:mid; const w=isThick?thick:thin;
+
+      const v=document.createElementNS('http://www.w3.org/2000/svg','line');
+      v.setAttribute('x1',p);v.setAttribute('y1',0);v.setAttribute('x2',p);v.setAttribute('y2',gridPx);
+      v.setAttribute('stroke',col);v.setAttribute('stroke-width',w);
+      grid.appendChild(v);
+
+      const h=document.createElementNS('http://www.w3.org/2000/svg','line');
+      h.setAttribute('x1',0);h.setAttribute('y1',p);h.setAttribute('x2',gridPx);h.setAttribute('y2',p);
+      h.setAttribute('stroke',col);h.setAttribute('stroke-width',w);
+      grid.appendChild(h);
     }
 
-    scaleRange.addEventListener('input', e=>{scale = clamp(e.target.value, .5, 4); scaleLbl.textContent = `${Number(scale).toFixed(2)}x`; redraw();});
-    squareMm.addEventListener('input', e=>{squareSizeMm = clamp(e.target.value,1,20); redraw();});
-    gridCm.addEventListener('input', e=>{gridSizeCm = clamp(e.target.value,5,20); redraw();});
-    fixChk.addEventListener('change', e=>{showFixation = !!e.target.checked; redraw();});
-    fixMm.addEventListener('input', e=>{fixationSizeMm = clamp(e.target.value,.5,4); redraw();});
+    const center = Math.round(gridPx/2)+0.5;
+    const cx=document.createElementNS('http://www.w3.org/2000/svg','line');
+    cx.setAttribute('x1',center);cx.setAttribute('y1',0);cx.setAttribute('x2',center);cx.setAttribute('y2',gridPx);
+    cx.setAttribute('stroke',fg);cx.setAttribute('stroke-width',Math.max(2,thick));
+    grid.appendChild(cx);
 
-    grid.parentElement.addEventListener('wheel', (e)=>{
-      if(e.ctrlKey||e.metaKey||e.shiftKey){ e.preventDefault();
+    const cy=document.createElementNS('http://www.w3.org/2000/svg','line');
+    cy.setAttribute('x1',0);cy.setAttribute('y1',center);cy.setAttribute('x2',gridPx);cy.setAttribute('y2',center);
+    cy.setAttribute('stroke',fg);cy.setAttribute('stroke-width',Math.max(2,thick));
+    grid.appendChild(cy);
+
+    if(showFixation){
+      const r=(fixationSizeMm/2)*pxPerMm*scale;
+      const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',center);c.setAttribute('cy',center);
+      c.setAttribute('r',r);c.setAttribute('fill',fg);
+      grid.appendChild(c);
+    }
+
+    if (pxmmLbl) pxmmLbl.textContent = fmt(pxPerMm);
+    if (scaleLbl) scaleLbl.textContent = `${Number(scale).toFixed(2)}x`;
+  }
+
+  if (scaleRange){
+    scaleRange.addEventListener('input',(e)=>{
+      scale = clamp(e.target.value,.5,4);
+      if (scaleLbl) scaleLbl.textContent = `${Number(scale).toFixed(2)}x`;
+      updateRangeFill(scaleRange);
+      redraw();
+    });
+    updateRangeFill(scaleRange);
+  }
+  if (squareMmI) squareMmI.addEventListener('input', e=>{ squareSizeMm = clamp(e.target.value,1,20); redraw(); });
+  if (gridCmI)   gridCmI  .addEventListener('input', e=>{ gridSizeCm   = clamp(e.target.value,5,20);  redraw(); });
+  if (fixChk)    fixChk   .addEventListener('change',e=>{ showFixation = !!e.target.checked;         redraw(); });
+  if (fixMmI)    fixMmI   .addEventListener('input', e=>{ fixationSizeMm = clamp(e.target.value,.5,4);redraw(); });
+
+  if (grid.parentElement){
+    grid.parentElement.addEventListener('wheel',(e)=>{
+      if(e.ctrlKey||e.metaKey||e.shiftKey){
+        e.preventDefault();
         const dir = e.deltaY>0 ? -0.1 : 0.1;
-        scale = clamp((+scale + dir).toFixed(2), .5, 4);
-        scaleRange.value = scale; scaleLbl.textContent = `${Number(scale).toFixed(2)}x`;
+        scale = clamp((+scale+dir).toFixed(2), .5, 4);
+        if (scaleRange) scaleRange.value = scale;
+        if (scaleLbl)   scaleLbl.textContent = `${Number(scale).toFixed(2)}x`;
+        updateRangeFill(scaleRange);
         redraw();
       }
     }, {passive:false});
+  }
 
+  if (themeBtn){
     themeBtn.addEventListener('click', ()=>{
       const dark = !body.classList.contains('dark');
       body.classList.toggle('dark', dark);
       themeBtn.textContent = dark ? 'Light Theme' : 'Dark Theme';
       redraw();
     });
+  }
 
+  if (pngBtn){
     pngBtn.addEventListener('click', ()=>{
-      const serializer = new XMLSerializer();
-      const src = serializer.serializeToString(grid);
-      const svgBlob = new Blob([src], {type:'image/svg+xml;charset=utf-8'});
-      const url = URL.createObjectURL(svgBlob);
-      const img = new Image();
-      img.onload = ()=>{
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.ceil(+grid.getAttribute('width'));
-        canvas.height = Math.ceil(+grid.getAttribute('height'));
-        const ctx = canvas.getContext('2d');
-        const styles = getComputedStyle(document.documentElement);
-        const dark = body.classList.contains('dark');
-        const bg = styles.getPropertyValue(dark?'--bg-dark':'--bg').trim();
-        ctx.fillStyle = bg; ctx.fillRect(0,0,canvas.width,canvas.height);
+      const serializer=new XMLSerializer();
+      const src=serializer.serializeToString(grid);
+      const svgBlob=new Blob([src],{type:'image/svg+xml;charset=utf-8'});
+      const url=URL.createObjectURL(svgBlob);
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.ceil(+grid.getAttribute('width'));
+        canvas.height=Math.ceil(+grid.getAttribute('height'));
+        const ctx=canvas.getContext('2d');
+        const dark=body.classList.contains('dark');
+        const bg=getComputedStyle(document.documentElement).getPropertyValue(dark?'--bg-dark':'--bg').trim()||'#fff';
+        ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.drawImage(img,0,0);
         URL.revokeObjectURL(url);
         canvas.toBlob((blob)=>{
           if(!blob) return;
-          const a = document.createElement('a');
-          const theme = body.classList.contains('dark') ? 'dark' : 'light';
-          a.href = URL.createObjectURL(blob);
-          a.download = `amsler-${gridCm.value}cm-${squareMm.value}mm-${theme}.png`;
+          const a=document.createElement('a');
+          const theme=body.classList.contains('dark')?'dark':'light';
+          a.href=URL.createObjectURL(blob);
+          a.download=`amsler-${gridCmI?gridCmI.value:gridSizeCm}cm-${squareMmI?squareMmI.value:squareSizeMm}mm-${theme}.png`;
           a.click();
-        }, 'image/png');
+        },'image/png');
       };
-      img.src = url;
+      img.src=url;
     });
+  }
 
-    // Calibration
-    const CARD_WIDTH_MM = 85.6; // ISO/IEC 7810 ID-1
-    function openCal(show){ calModal.classList.toggle('open', !!show); calModal.setAttribute('aria-hidden', show? 'false':'true'); }
-    function updateCardBox(px){
-      cardBox.style.width = px + 'px';
-      const h = Math.round((CARD_WIDTH_MM * 54 / 85.6) * (px / CARD_WIDTH_MM));
-      cardBox.style.height = h + 'px';
-      cardPxLbl.textContent = px + 'px';
-      calcPxmm.textContent = fmt(px / CARD_WIDTH_MM);
-    }
-    calBtn.addEventListener('click', ()=>{openCal(true)});
-    calCancel.addEventListener('click', ()=>{openCal(false)});
-    cardRange.addEventListener('input', e=>{updateCardBox(+e.target.value)});
+  const openCal=(show)=>{
+    if(!calModal) return;
+    calModal.classList.toggle('open',!!show);
+    calModal.setAttribute('aria-hidden',show?'false':'true');
+  };
+  if (calBtn)    calBtn.addEventListener('click', ()=>openCal(true));
+  if (calCancel) calCancel.addEventListener('click', ()=>openCal(false));
+
+  const CARD_WIDTH_MM=85.6;
+  function updateCardBox(px){
+    if(!cardBox||!cardPxLbl||!calcPxmm) return;
+    cardBox.style.width = px+'px';
+    const h=Math.round((CARD_WIDTH_MM*54/85.6)*(px/CARD_WIDTH_MM));
+    cardBox.style.height = h+'px';
+    cardPxLbl.textContent = px+'px';
+    calcPxmm.textContent = fmt(px/CARD_WIDTH_MM);
+    updateRangeFill(cardRange);
+  }
+  if (cardRange){
+    updateCardBox(+cardRange.value||320);
+    cardRange.addEventListener('input', e=>{ updateCardBox(+e.target.value||320); });
+  }
+  if (calApply){
     calApply.addEventListener('click', ()=>{
-      const px = +cardRange.value;
+      const px = cardRange ? +cardRange.value : 320;
       pxPerMm = px / CARD_WIDTH_MM;
-      pxmmLbl.textContent = fmt(pxPerMm);
+      if (pxmmLbl) pxmmLbl.textContent = fmt(pxPerMm);
       openCal(false);
       redraw();
     });
-    updateCardBox(+cardRange.value || 320);
+  }
 
-    redraw();
-  })();
+  updateRangeFill(scaleRange);
+  updateRangeFill(cardRange);
+  redraw(); // First draw
+});
   </script>
 </body>
 </html>
-
