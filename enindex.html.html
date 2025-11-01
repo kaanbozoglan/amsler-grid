@@ -171,7 +171,7 @@ input[type="range"]::-webkit-slider-thumb{
 .brand-name{font-weight:800;letter-spacing:.2px;font-size:20px;line-height:1}
 .brand-accent{color:var(--primary)}
 .brand:hover .logo{transform:translateY(-1px) scale(1.02);filter:drop-shadow(0 6px 16px rgba(43,111,255,.18))}
-@media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px}}
+@media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px)}
 
 /* ===================== Mobile enhancements ===================== */
 .container{
@@ -216,6 +216,20 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   .controls h2{ font-size:15px; }
 }
 .modal .panel{ width:min(680px, 94vw); padding:16px; }
+
+/* === Sticky CTA (mobile) === */
+.sticky-cta{
+  position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  background: var(--primary); color:#fff; font-weight:700;
+  padding: 12px 18px; border-radius: 999px; box-shadow: var(--shadow);
+  text-decoration: none; border: 0; z-index: 60; display: none;
+}
+.sticky-cta:focus{ outline: none; box-shadow: 0 0 0 4px var(--ring); }
+@media (max-width: 640px){
+  .sticky-cta{ display:inline-flex; }
+  header .actions .primary{ display:none; }
+}
   </style>
 </head>
 <body>
@@ -236,12 +250,14 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
         <span class="brand-name">Amsler<span class="brand-accent">Grid</span></span>
       </a>
 
-      <!-- ORDER: Language → Theme → Calibration → PNG -->
+      <!-- ORDER: Language → Theme → Calibration → PNG → Primary CTA -->
       <div class="actions">
         <a href="index.html" class="btn" aria-label="Switch to Turkish">Türkçe</a>
         <button id="themeBtn" class="btn" aria-label="Toggle theme">Dark Theme</button>
         <button id="calBtn" class="btn">Calibration</button>
         <button id="pngBtn" class="btn">Download PNG</button>
+        <!-- ✅ Primary CTA -->
+        <a href="#test" class="btn primary" aria-label="Start the test">Start Test</a>
       </div>
     </header>
 
@@ -285,7 +301,7 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
       </div>
     </section>
 
-    <!-- ⬇️ Added anchor for easy jump -->
+    <!-- ⬇️ Anchor for easy jump -->
     <section class="grid-wrap" id="test">
       <div class="frame">
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler grid"></svg>
@@ -322,6 +338,9 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
       </div>
     </div>
   </div>
+
+  <!-- ✅ Mobile Sticky CTA -->
+  <a href="#test" class="sticky-cta" aria-label="Start Test">Start Test</a>
 
   <script>
 /* ===================== Robust JS (DOMContentLoaded + defensive) ===================== */
