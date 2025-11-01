@@ -129,6 +129,7 @@ input[type="range"]::-webkit-slider-thumb{
 /* Header eylemleri */
 header { row-gap: 10px; }
 header .actions{
+  display:flex; gap:8px;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
@@ -204,11 +205,12 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
         <span class="brand-name">Amsler<span class="brand-accent">Grid</span></span>
       </a>
 
-      <div class="actions" style="display:flex;gap:8px">
+      <!-- SIRA: Dil → Tema → Kalibrasyon → PNG -->
+      <div class="actions">
+        <a href="enindex.html" class="btn">English</a>
         <button id="themeBtn" class="btn" aria-label="Tema değiştir">Koyu Tema</button>
         <button id="calBtn" class="btn">Kalibrasyon</button>
         <button id="pngBtn" class="btn">PNG İndir</button>
-        <a href="enindex.html" class="btn">English</a>
       </div>
     </header>
 
