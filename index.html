@@ -247,6 +247,9 @@ body.test-only header,
 body.test-only .row,
 body.test-only footer,
 body.test-only .sticky-cta { display:none !important; }
+/* >>> YENİ: Test modunda H1'i gizle */
+body.test-only h1 { display:none !important; }
+
 body.test-only .container{ max-width:none; padding:0; }
 body.test-only .grid-wrap{ min-height:100vh; }
 body.test-only .frame{ border:0; border-radius:0; padding:0; box-shadow:none; background:var(--card); }
@@ -417,8 +420,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- Focus/Test-Only Mode ---
-  const startBtns = document.querySelectorAll('.startTestBtn');
+  const startBtns = document.querySelectorAll('.startTestBtn, .sticky-cta');
   const exitBtn = q('#exitTestBtn');
+
   function enterTestOnly(){
     document.body.classList.add('test-only');
     const testEl = document.getElementById('test');
@@ -427,12 +431,30 @@ document.addEventListener('DOMContentLoaded', () => {
   function exitTestOnly(){
     document.body.classList.remove('test-only');
   }
+
+  // >>> YENİ: Mobilde yeni sekme, masaüstünde sayfa içi test-only
+  function isMobile(){
+    return window.matchMedia('(max-width: 640px)').matches || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  }
+  function openTestMode(){
+    if (isMobile()){
+      const url = (location.origin + location.pathname + (location.search || '') + '#test-only');
+      const w = window.open(url, '_blank', 'noopener');
+      if (!w) { // popup engellenirse fallback
+        location.hash = '#test-only';
+      }
+    } else {
+      enterTestOnly();
+    }
+  }
+
   startBtns.forEach(btn=>{
     btn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      enterTestOnly();
+      e.preventDefault(); // anchor'ın #test'e atlamasını önle
+      openTestMode();
     });
   });
+
   if (exitBtn){ exitBtn.addEventListener('click', exitTestOnly); }
   document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') exitTestOnly(); });
   if (location.hash === '#test-only') enterTestOnly();
