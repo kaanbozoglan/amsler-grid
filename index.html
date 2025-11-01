@@ -2,7 +2,6 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="content-language" content="tr">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- ✨ SEO TEMELİ -->
@@ -10,29 +9,18 @@
   <meta name="description" content="Evde 30 saniyede Amsler grid testi yapın. Makula sağlığınızı hızlıca kontrol edin. Ücretsiz ve eğitsel test!" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="keywords" content="Amsler grid testi online, Amsler testi online ücretsiz, makula testi online, ücretsiz makula testi, Amsler grid test, göz testi online, sarı nokta testi" />
-  <meta name="format-detection" content="telephone=no">
-  <meta name="theme-color" content="#2b6fff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/index.html" />
   <!-- TR & EN hreflang -->
   <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/index.html" hreflang="tr" />
   <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/enindex.html" hreflang="en" />
   <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/index.html" hreflang="x-default" />
 
-  <!-- Favicon / PWA (dosyalar yoksa ekleyebilirsin) -->
-  <link rel="icon" href="https://kaanbozoglan.github.io/amsler-grid/favicon.ico">
-  <link rel="apple-touch-icon" href="https://kaanbozoglan.github.io/amsler-grid/apple-touch-icon.png">
-  <!-- <link rel="manifest" href="/manifest.webmanifest"> -->
-
   <!-- 🟦 Open Graph / Sosyal Paylaşım -->
-  <meta property="og:site_name" content="Amsler Grid">
   <meta property="og:title" content="Amsler Grid Testi Online | Ücretsiz Makula Testi" />
   <meta property="og:description" content="30 sn’de çevrimiçi Amsler testi. Eğitsel amaçlıdır; şüphede hekime başvurun." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kaanbozoglan.github.io/amsler-grid/index.html" />
   <meta property="og:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
-  <meta property="og:locale" content="tr_TR" />
-  <meta property="og:locale:alternate" content="en_US" />
 
   <!-- 🐦 Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -111,15 +99,6 @@ body.dark{
 *{box-sizing:border-box}
 html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg)}
 .container{max-width:1100px;margin:auto;padding:16px 20px}
-
-/* Skip link */
-.skip-link{
-  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
-}
-.skip-link:focus{
-  position:fixed; left:16px; top:16px; width:auto; height:auto; background:#111; color:#fff;
-  padding:10px 14px; border-radius:10px; z-index:9999;
-}
 
 /* Header & Footer */
 header,footer{padding-block:12px}
@@ -262,19 +241,28 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   .sticky-cta{ display:inline-flex; }
   header .actions .primary{ display:none; }
 }
+
+/* === Focus/Test-Only Mode === */
+body.test-only header,
+body.test-only .row,
+body.test-only footer,
+body.test-only .sticky-cta { display:none !important; }
+body.test-only .container{ max-width:none; padding:0; }
+body.test-only .grid-wrap{ min-height:100vh; }
+body.test-only .frame{ border:0; border-radius:0; padding:0; box-shadow:none; background:var(--card); }
+body.test-only #grid{ width:min(96vmin, 100vw); height:auto; }
+body.test-only #exitTestBtn{ display:inline-flex; }
   </style>
 </head>
 <body>
-  <!-- ♿ Skip to content -->
-  <a href="#main" class="skip-link">İçeriğe atla</a>
+  <div class="container">
 
-  <div class="container" role="region" aria-label="Amsler Grid Aracı Kapsayıcı">
     <!-- ✅ H1: Ana hedef kelime -->
-    <h1 style="margin:12px 0 0 0; text-align:center;">Amsler Grid Testi Online – <span style="color:var(--primary)">Ücretsiz Makula Testi</span></h1>
+    <h1 style="margin:12px 0 0 0;">Amsler Grid Testi Online – Ücretsiz Makula Testi</h1>
 
-    <header style="display:flex;gap:12px;align-items:center;justify-content:space-between" role="banner">
+    <header style="display:flex;gap:12px;align-items:center;justify-content:space-between">
       <!-- LOGOLU BAŞLIK -->
-      <a class="brand" href="#" aria-label="Amsler Grid Ana Sayfa">
+      <a class="brand" href="#" aria-label="Amsler Grid">
         <svg class="logo" viewBox="0 0 96 96" role="img" aria-hidden="true">
           <defs>
             <pattern id="amslerGridPattern" width="12" height="12" patternUnits="userSpaceOnUse">
@@ -289,84 +277,82 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
       </a>
 
       <!-- SIRA: Dil → Tema → Kalibrasyon → PNG → Primary CTA -->
-      <nav class="actions" aria-label="Üst Eylemler">
-        <a href="enindex.html" class="btn" hreflang="en">English</a>
+      <div class="actions">
+        <a href="enindex.html" class="btn">English</a>
         <button id="themeBtn" class="btn" aria-label="Tema değiştir">Koyu Tema</button>
         <button id="calBtn" class="btn">Kalibrasyon</button>
         <button id="pngBtn" class="btn">PNG İndir</button>
-        <a href="#test" class="btn primary" aria-label="Testi Başlat">Testi Başlat</a>
-      </nav>
+        <a href="#test" class="btn primary startTestBtn" aria-label="Testi Başlat">Testi Başlat</a>
+      </div>
     </header>
 
-    <main id="main" role="main" tabindex="-1">
-      <section class="row" style="padding-block:12px" aria-label="Kontroller ve Talimatlar">
-        <div class="card controls">
-          <h2 style="margin:0 0 8px 0;font-size:16px">Görüntü Kontrolleri</h2>
-          <div class="line">
-            <label for="scaleRange">Yakınlaştırma</label>
-            <input id="scaleRange" type="range" min="0.5" max="4" step="0.01" value="1" />
-            <div id="scaleLbl" style="width:56px;text-align:right;font-variant-numeric:tabular-nums" aria-live="polite">1.00x</div>
-          </div>
-          <div class="line">
-            <label for="squareMm">Kare Boyutu</label>
-            <input id="squareMm" type="number" min="1" max="20" step="0.5" value="5" />
-            <span>mm</span>
-          </div>
-          <div class="line">
-            <label for="gridCm">Izgara Boyutu</label>
-            <input id="gridCm" type="number" min="5" max="20" step="1" value="10" />
-            <span>cm</span>
-          </div>
-          <div class="line">
-            <label for="fixChk">Merkez Nokta</label>
-            <input id="fixChk" type="checkbox" checked />
-            <input id="fixMm" type="number" min="0.5" max="4" step="0.1" value="1.5" />
-            <span>mm</span>
-          </div>
-          <div class="line" style="font-size:12px;color:var(--muted)">Kalibrasyon: <span id="pxmm">3.780</span> px/mm</div>
+    <section class="row" style="padding-block:12px">
+      <div class="card controls">
+        <h2 style="margin:0 0 8px 0;font-size:16px">Görüntü Kontrolleri</h2>
+        <div class="line">
+          <label>Yakınlaştırma</label>
+          <input id="scaleRange" type="range" min="0.5" max="4" step="0.01" value="1" />
+          <div id="scaleLbl" style="width:56px;text-align:right;font-variant-numeric:tabular-nums">1.00x</div>
         </div>
-
-        <div class="card">
-          <h2 style="margin:0 0 8px 0;font-size:16px">Kullanım Talimatları (Özet)</h2>
-          <ol style="margin:6px 0 0 18px;line-height:1.6;font-size:14px">
-            <li>Gerekirse <b>Kalibrasyon</b> yapın: kart alanını gerçek kartla eşleyin.</li>
-            <li>Ekrandan yaklaşık <b>30–35 cm</b> uzakta oturun.</li>
-            <li>Bir gözünüzü kapatın ve <b>merkez noktaya</b> bakın.</li>
-            <li>Çizgilerde <i>eğrilme, kırılma, kararma</i> var mı kontrol edin.</li>
-            <li>Her iki göz için tekrarlayın ve şüphe varsa hekime başvurun.</li>
-          </ol>
-          <p style="font-size:12px;color:var(--muted)">Uyarı: Bu test tıbbi tanı yerine geçmez.</p>
+        <div class="line">
+          <label>Kare Boyutu</label>
+          <input id="squareMm" type="number" min="1" max="20" step="0.5" value="5" />
+          <span>mm</span>
         </div>
-      </section>
-
-      <!-- ⬇️ Anchor: id="test" -->
-      <section class="grid-wrap" id="test" aria-label="Amsler Izgarası">
-        <div class="frame">
-          <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-labelledby="gridTitle gridDesc">
-            <title id="gridTitle">Amsler ızgarası</title>
-            <desc id="gridDesc">Merkezde nokta bulunan karelerden oluşan bir ızgara. Merkezi görmede bozulmaları taramak için kullanılır.</desc>
-          </svg>
+        <div class="line">
+          <label>Izgara Boyutu</label>
+          <input id="gridCm" type="number" min="5" max="20" step="1" value="10" />
+          <span>cm</span>
         </div>
-      </section>
-    </main>
+        <div class="line">
+          <label>Merkez Nokta</label>
+          <input id="fixChk" type="checkbox" checked />
+          <input id="fixMm" type="number" min="0.5" max="4" step="0.1" value="1.5" />
+          <span>mm</span>
+        </div>
+        <div class="line" style="font-size:12px;color:var(--muted)">Kalibrasyon: <span id="pxmm">3.780</span> px/mm</div>
+      </div>
 
-    <footer role="contentinfo">
+      <div class="card">
+        <h2 style="margin:0 0 8px 0;font-size:16px">Kullanım Talimatları (Özet)</h2>
+        <ol style="margin:6px 0 0 18px;line-height:1.6;font-size:14px">
+          <li>Gerekirse <b>Kalibrasyon</b> yapın: kart alanını gerçek kartla eşleyin.</li>
+          <li>Ekrandan yaklaşık <b>30–35 cm</b> uzakta oturun.</li>
+          <li>Bir gözünüzü kapatın ve <b>merkez noktaya</b> bakın.</li>
+          <li>Çizgilerde <i>eğrilme, kırılma, kararma</i> var mı kontrol edin.</li>
+          <li>Her iki göz için tekrarlayın ve şüphe varsa hekime başvurun.</li>
+        </ol>
+        <p style="font-size:12px;color:var(--muted)">Uyarı: Bu test tıbbi tanı yerine geçmez.</p>
+      </div>
+    </section>
+
+    <!-- ⬇️ Anchor: id="test" -->
+    <section class="grid-wrap" id="test">
+      <div class="frame">
+        <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler ızgarası"></svg>
+      </div>
+    </section>
+
+    <footer>
       © <span id="year"></span> Amsler Grid Aracı — Eğitim amaçlıdır.
     </footer>
   </div>
 
+  <!-- Sabit Çıkış Butonu (focus modunda görünür) -->
+  <button id="exitTestBtn" class="btn" style="display:none;position:fixed;top:14px;right:14px;z-index:70">Çık</button>
+
   <!-- Kalibrasyon Modalı -->
-  <div id="calModal" class="modal" aria-hidden="true" aria-labelledby="calTitle">
-    <div class="panel" role="dialog" aria-modal="true">
-      <h3 id="calTitle" style="margin:0 0 6px 0">Ekran Kalibrasyonu</h3>
+  <div id="calModal" class="modal" aria-hidden="true">
+    <div class="panel">
+      <h3 style="margin:0 0 6px 0">Ekran Kalibrasyonu</h3>
       <p style="margin:0 0 10px 0;font-size:14px;opacity:.85">
         Aşağıdaki dikdörtgeni gerçek bir kredi/banka kartınızla <b>aynı genişlikte</b> olacak şekilde ayarlayın.
         Kartın standart genişliği <b>85.6 mm</b>'dir. Bu işlem piksel/mm oranını doğru hesaplar.
       </p>
       <div class="line">
-        <label for="cardRange">Kart Genişliği</label>
+        <label>Kart Genişliği</label>
         <input id="cardRange" type="range" min="80" max="560" step="1" value="320" style="width:100%" />
-        <div id="cardPxLbl" style="width:72px;text-align:right;font-variant-numeric:tabular-nums" aria-live="polite">320px</div>
+        <div id="cardPxLbl" style="width:72px;text-align:right;font-variant-numeric:tabular-nums">320px</div>
       </div>
       <div style="display:flex;justify-content:center;padding:16px 0">
         <div id="cardBox" style="width:320px;height:202px"></div>
@@ -383,10 +369,6 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
 
   <!-- ✅ Mobile Sticky CTA -->
   <a href="#test" class="sticky-cta" aria-label="Testi Başlat">Testi Başlat</a>
-
-  <noscript>
-    Bu sayfa bazı özellikler için JavaScript kullanır (kalibrasyon ve PNG indirme). En iyi deneyim için JavaScript’i etkinleştirin.
-  </noscript>
 
   <script>
 /* ===================== SAĞLAM JS (DOM hazır + defansif) ===================== */
@@ -433,6 +415,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const min=Number(el.min??0), max=Number(el.max??100), val=Number(el.value??(min+max)/2);
     el.style.setProperty('--_val', ((val-min)/(max-min))*100 + '%');
   };
+
+  // --- Focus/Test-Only Mode ---
+  const startBtns = document.querySelectorAll('.startTestBtn');
+  const exitBtn = q('#exitTestBtn');
+  function enterTestOnly(){
+    document.body.classList.add('test-only');
+    const testEl = document.getElementById('test');
+    if (testEl) testEl.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  function exitTestOnly(){
+    document.body.classList.remove('test-only');
+  }
+  startBtns.forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      enterTestOnly();
+    });
+  });
+  if (exitBtn){ exitBtn.addEventListener('click', exitTestOnly); }
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') exitTestOnly(); });
+  if (location.hash === '#test-only') enterTestOnly();
 
   function redraw(){
     if (squareMmI) squareSizeMm = clamp(squareMmI.value,1,20) || 5;
