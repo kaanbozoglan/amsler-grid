@@ -3,7 +3,61 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Amsler Grid Testi – Tek Dosya</title>
+
+  <!-- ✨ SEO TEMELİ -->
+  <title>Amsler Grid Testi Online | Ücretsiz Makula Testi</title>
+  <meta name="description" content="Evde 30 saniyede Amsler grid testi yapın. Makula sağlığınızı hızlıca kontrol edin. Ücretsiz ve eğitsel test!" />
+  <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/index.html" />
+  <!-- TR & EN hreflang -->
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/index.html" hreflang="tr" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/enindex.html" hreflang="en" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/index.html" hreflang="x-default" />
+
+  <!-- 🟦 Open Graph / Sosyal Paylaşım -->
+  <meta property="og:title" content="Amsler Grid Testi Online | Ücretsiz Makula Testi" />
+  <meta property="og:description" content="30 sn’de çevrimiçi Amsler testi. Eğitsel amaçlıdır; şüphede hekime başvurun." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kaanbozoglan.github.io/amsler-grid/index.html" />
+  <meta property="og:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
+
+  <!-- 🐦 Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Amsler Grid Testi Online | Ücretsiz Makula Testi" />
+  <meta name="twitter:description" content="30 sn’de çevrimiçi Amsler testi. Eğitsel amaçlıdır; şüphede hekime başvurun." />
+  <meta name="twitter:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
+
+  <!-- 🧠 Yapısal Veri (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"MedicalWebPage",
+    "name":"Amsler Grid Testi Online",
+    "url":"https://kaanbozoglan.github.io/amsler-grid/index.html",
+    "isAccessibleForFree":true,
+    "about":{"@type":"MedicalTest","name":"Amsler Grid Test"},
+    "medicalSpecialty":"Ophthalmology",
+    "inLanguage":"tr"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Amsler grid testi neyi gösterir?",
+        "acceptedAnswer":{"@type":"Answer","text":"Merkezi görme alanında dalgalanma, kırılma veya kararma gibi anomalileri tarar; tıbbi tanı yerine geçmez. Şüphede hekime başvurun."}
+      },
+      {
+        "@type":"Question",
+        "name":"Testi nasıl yapmalıyım?",
+        "acceptedAnswer":{"@type":"Answer","text":"Bir gözünüzü kapatıp merkez noktaya odaklanın; 30–35 cm mesafede çizgilerde eğrilme ya da boşluk olup olmadığını kontrol edin. Her iki göz için tekrarlayın."}
+      }
+    ]
+  }
+  </script>
+
   <style>
 /* ===================== MODERN TEMA & UI ===================== */
 :root{
@@ -17,9 +71,11 @@
   --mid: var(--muted);
   --bg-dark:#0b1220; --card-dark:#111a2b; --fg-dark:#e5e7eb; --mid-dark:#9aa3b2; --border-dark:#22324f;
 }
+html{scroll-behavior:smooth}
 body.dark{
-  --bg:#0b1220; --card:#111a2b; --fg:#e5e7eb; --muted:#9aa3b2;
-  --primary:#5a8bff; --accent:#15d2c4; --border:#22324f; --ring: rgba(90,139,255,.35);
+  --bg:#0b1220; --card:#111a2b; --fg:#e5e7eb;
+  --muted:#9aa3b2; --primary:#5a8bff; --accent:#15d2c4;
+  --border:#22324f; --ring: rgba(90,139,255,.35);
 }
 *{box-sizing:border-box}
 html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg)}
@@ -254,7 +310,8 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
       </div>
     </section>
 
-    <section class="grid-wrap">
+    <!-- ⬇️ Anchor ekledim: id="test" -->
+    <section class="grid-wrap" id="test">
       <div class="frame">
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler ızgarası"></svg>
       </div>
