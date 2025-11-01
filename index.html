@@ -83,6 +83,7 @@ input[type="range"]::-webkit-slider-thumb{
   padding:9px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:inherit;cursor:pointer;
   font-weight:600;box-shadow:var(--shadow-soft);
   transition:transform var(--transition),box-shadow var(--transition);
+  text-decoration:none;display:inline-block;
 }
 .btn:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.06)}
 .btn.primary{background:var(--primary);border-color:transparent;color:#fff}
@@ -116,6 +117,73 @@ input[type="range"]::-webkit-slider-thumb{
 .brand-accent{color:var(--primary)}
 .brand:hover .logo{transform:translateY(-1px) scale(1.02);filter:drop-shadow(0 6px 16px rgba(43,111,255,.18))}
 @media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px}}
+
+/* ===================== Mobile enhancements ===================== */
+
+/* Güvenli çentik alanları */
+.container{
+  padding-left:max(16px, env(safe-area-inset-left));
+  padding-right:max(16px, env(safe-area-inset-right));
+}
+
+/* Header eylemleri */
+header { row-gap: 10px; }
+header .actions{
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+@media (max-width: 640px){
+  header{
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  .brand{ justify-content: center; }
+  header .actions{ justify-content: center; }
+}
+
+/* Dokunma hedefleri */
+.btn{
+  min-height:44px;
+  padding:10px 14px;
+  font-size:14px;
+  line-height:1.1;
+  white-space: nowrap;
+}
+@media (max-width: 420px){
+  .btn{ font-size:13px; padding:10px 12px; }
+  header .actions{ gap:6px; }
+}
+
+/* Kontrol satırları */
+@media (max-width: 560px){
+  .controls .line{ flex-wrap: wrap; align-items: center; }
+  .controls label{ min-width:auto; width:100%; margin-bottom:4px; }
+  .controls input[type="number"],
+  .controls input[type="text"]{ width:100%; }
+  .controls .line span{ opacity:.9 }
+}
+
+/* Range */
+input[type="range"]{ height:12px; }
+input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
+@media (max-width:420px){
+  input[type="range"]{ height:12px; }
+  input[type="range"]::-webkit-slider-thumb{ width:22px; height:22px; }
+}
+
+/* Grid esnekliği */
+#grid{ width: min(700px, calc(100vw - 40px)); }
+.frame{ padding:12px; }
+@media (max-width:420px){ .frame{ padding:10px; } }
+
+/* Kartlar kompakt */
+@media (max-width:560px){
+  .card{ padding:14px; }
+  .controls h2{ font-size:15px; }
+}
+
+/* Modal panel nefes alanı */
+.modal .panel{ width:min(680px, 94vw); padding:16px; }
   </style>
 </head>
 <body>
@@ -136,7 +204,7 @@ input[type="range"]::-webkit-slider-thumb{
         <span class="brand-name">Amsler<span class="brand-accent">Grid</span></span>
       </a>
 
-      <div style="display:flex;gap:8px">
+      <div class="actions" style="display:flex;gap:8px">
         <button id="themeBtn" class="btn" aria-label="Tema değiştir">Koyu Tema</button>
         <button id="calBtn" class="btn">Kalibrasyon</button>
         <button id="pngBtn" class="btn">PNG İndir</button>
