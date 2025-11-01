@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kaanbozoglan.github.io/amsler-grid/sitemap.xml
