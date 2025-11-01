@@ -175,14 +175,10 @@ input[type="range"]::-webkit-slider-thumb{
 @media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px}}
 
 /* ===================== Mobile enhancements ===================== */
-
-/* Güvenli çentik alanları */
 .container{
   padding-left:max(16px, env(safe-area-inset-left));
   padding-right:max(16px, env(safe-area-inset-right));
 }
-
-/* Header eylemleri */
 header { row-gap: 10px; }
 header .actions{
   display:flex; gap:8px;
@@ -197,8 +193,6 @@ header .actions{
   .brand{ justify-content: center; }
   header .actions{ justify-content: center; }
 }
-
-/* Dokunma hedefleri */
 .btn{
   min-height:44px;
   padding:10px 14px;
@@ -210,8 +204,6 @@ header .actions{
   .btn{ font-size:13px; padding:10px 12px; }
   header .actions{ gap:6px; }
 }
-
-/* Kontrol satırları */
 @media (max-width: 560px){
   .controls .line{ flex-wrap: wrap; align-items: center; }
   .controls label{ min-width:auto; width:100%; margin-bottom:4px; }
@@ -219,28 +211,35 @@ header .actions{
   .controls input[type="text"]{ width:100%; }
   .controls .line span{ opacity:.9 }
 }
-
-/* Range */
 input[type="range"]{ height:12px; }
 input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
 @media (max-width:420px){
   input[type="range"]{ height:12px; }
   input[type="range"]::-webkit-slider-thumb{ width:22px; height:22px; }
 }
-
-/* Grid esnekliği */
 #grid{ width: min(700px, calc(100vw - 40px)); }
 .frame{ padding:12px; }
 @media (max-width:420px){ .frame{ padding:10px; } }
-
-/* Kartlar kompakt */
 @media (max-width:560px){
   .card{ padding:14px; }
   .controls h2{ font-size:15px; }
 }
-
-/* Modal panel nefes alanı */
 .modal .panel{ width:min(680px, 94vw); padding:16px; }
+
+/* === Sticky CTA (mobile) === */
+.sticky-cta{
+  position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  background: var(--primary); color:#fff; font-weight:700;
+  padding: 12px 18px; border-radius: 999px; box-shadow: var(--shadow);
+  text-decoration: none; border: 0; z-index: 60; display: none;
+}
+.sticky-cta:focus{ outline: none; box-shadow: 0 0 0 4px var(--ring); }
+@media (max-width: 640px){
+  .sticky-cta{ display:inline-flex; }
+  /* Mobilde header’daki primary butonu gizlemek istersen: */
+  header .actions .primary{ display:none; }
+}
   </style>
 </head>
 <body>
@@ -261,12 +260,14 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
         <span class="brand-name">Amsler<span class="brand-accent">Grid</span></span>
       </a>
 
-      <!-- SIRA: Dil → Tema → Kalibrasyon → PNG -->
+      <!-- SIRA: Dil → Tema → Kalibrasyon → PNG → Primary CTA -->
       <div class="actions">
         <a href="enindex.html" class="btn">English</a>
         <button id="themeBtn" class="btn" aria-label="Tema değiştir">Koyu Tema</button>
         <button id="calBtn" class="btn">Kalibrasyon</button>
         <button id="pngBtn" class="btn">PNG İndir</button>
+        <!-- ✅ Primary CTA -->
+        <a href="#test" class="btn primary" aria-label="Testi Başlat">Testi Başlat</a>
       </div>
     </header>
 
@@ -310,7 +311,7 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
       </div>
     </section>
 
-    <!-- ⬇️ Anchor ekledim: id="test" -->
+    <!-- ⬇️ Anchor: id="test" -->
     <section class="grid-wrap" id="test">
       <div class="frame">
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler ızgarası"></svg>
@@ -347,6 +348,9 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
       </div>
     </div>
   </div>
+
+  <!-- ✅ Mobile Sticky CTA -->
+  <a href="#test" class="sticky-cta" aria-label="Testi Başlat">Testi Başlat</a>
 
   <script>
 /* ===================== SAĞLAM JS (DOM hazır + defansif) ===================== */
