@@ -28,6 +28,16 @@
   <meta name="twitter:description" content="30-second online Amsler test. Educational tool — consult an eye doctor if anything seems abnormal." />
   <meta name="twitter:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
 
+  <!-- 📈 Google Analytics 4 -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK52X0KBS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QK52X0KBS6');
+  </script>
+
   <!-- 🧠 Structured Data -->
   <script type="application/ld+json">
   {
@@ -254,7 +264,7 @@ body.test-only .container{ max-width:none; padding:0; }
 body.test-only .grid-wrap{ min-height:100vh; }
 body.test-only .frame{ border:0; border-radius:0; padding:0; box-shadow:none; background:var(--card); }
 body.test-only #grid{ width:min(96vmin, 100vw); height:auto; }
-body.test-only #exitTestBtn{ display:inline-flex; }
+body.test-only #exitTestBtn{ display:none; } /* English page uses sticky CTA; keep exit hidden unless you add it */
   </style>
 </head>
 <body>
@@ -341,7 +351,7 @@ body.test-only #exitTestBtn{ display:inline-flex; }
     </footer>
   </div>
 
-  <!-- Fixed Exit button (visible in focus mode) -->
+  <!-- Fixed Exit button (optional; hidden by default here) -->
   <button id="exitTestBtn" class="btn" style="display:none;position:fixed;top:14px;right:14px;z-index:70">Exit Test</button>
 
   <!-- Calibration Modal -->
@@ -431,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('test-only');
   }
 
-  // >>> NEW: mobile opens in a new tab; desktop stays inline
+  // mobile opens new tab; desktop stays inline
   function isMobile(){
     return window.matchMedia('(max-width: 640px)').matches || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   }
