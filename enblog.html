@@ -6,8 +6,10 @@
 
   <!-- ✨ SEO -->
   <title>Macula Blog | Amsler Grid, AMD, and Eye Health</title>
-  <meta name="description" content="Concise, SEO-friendly articles about macula and Amsler grid: What is AMD, symptoms, risk factors, how to interpret the Amsler grid test, nutrition (AREDS2), lifestyle, and more." />
+  <meta name="description" content="Concise, SEO-friendly articles on macula and the Amsler grid: what AMD is, symptoms, risk factors, how to interpret the Amsler grid test, nutrition (AREDS2), lifestyle, and more." />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+  <!-- Canonical & hreflang -->
   <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/enblog.html" />
   <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/trblog.html" hreflang="tr" />
   <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/enblog.html" hreflang="en" />
@@ -15,7 +17,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Macula Blog | Amsler Grid, AMD, and Eye Health" />
-  <meta property="og:description" content="Short, reliable articles on Amsler grid and macular health." />
+  <meta property="og:description" content="Short, reliable articles about Amsler grid and macular health." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://kaanbozoglan.github.io/amsler-grid/enblog.html" />
   <meta property="og:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
@@ -23,10 +25,10 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Macula Blog | Amsler Grid, AMD, and Eye Health" />
-  <meta name="twitter:description" content="Short, reliable articles on Amsler grid and macular health." />
+  <meta name="twitter:description" content="Short, reliable articles about Amsler grid and macular health." />
   <meta name="twitter:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
 
-  <!-- Google Analytics -->
+  <!-- GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK52X0KBS6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -35,7 +37,7 @@
     gtag('config', 'G-QK52X0KBS6');
   </script>
 
-  <!-- Schema.org -->
+  <!-- ✅ Structured Data -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -54,6 +56,39 @@
       {"@type":"BlogPosting","headline":"AREDS2 and Nutrition: Do Supplements Help?","url":"https://kaanbozoglan.github.io/amsler-grid/enblog.html#areds2-nutrition","inLanguage":"en"},
       {"@type":"BlogPosting","headline":"Lifestyle Tips: Light, Screens, and Eye Hygiene","url":"https://kaanbozoglan.github.io/amsler-grid/enblog.html#lifestyle-tips","inLanguage":"en"},
       {"@type":"BlogPosting","headline":"Amsler Grid Home Monitoring: How Often to Test","url":"https://kaanbozoglan.github.io/amsler-grid/enblog.html#home-monitoring","inLanguage":"en"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://kaanbozoglan.github.io/amsler-grid/enindex.html"},
+      {"@type":"ListItem","position":2,"name":"Macula Blog","item":"https://kaanbozoglan.github.io/amsler-grid/enblog.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Is the Amsler grid test a medical diagnosis?",
+        "acceptedAnswer":{"@type":"Answer","text":"No. The Amsler grid is a home screening tool to help you notice changes in your central vision. If you detect any abnormalities, consult an eye doctor."}
+      },
+      {
+        "@type":"Question",
+        "name":"How often should I do the test?",
+        "acceptedAnswer":{"@type":"Answer","text":"If you have no symptoms, once a week is usually fine unless your doctor advises otherwise."}
+      },
+      {
+        "@type":"Question",
+        "name":"Should I wear my glasses or contacts?",
+        "acceptedAnswer":{"@type":"Answer","text":"Use the same correction you normally wear for daily vision (glasses/contacts) during the test."}
+      }
     ]
   }
   </script>
@@ -80,6 +115,8 @@
     .hero{padding-block:16px}
     .hero h1{margin:6px 0 8px 0;font-size:28px}
     .hero p{margin:0;color:var(--muted)}
+    nav.breadcrumbs{font-size:12px;color:var(--muted);margin-bottom:8px}
+    nav.breadcrumbs a{color:inherit}
     .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
     .search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 10px}
     .search input{border:0;outline:none;background:transparent;flex:1}
@@ -94,6 +131,9 @@
     h2{margin:0 0 6px 0;font-size:18px}
     .excerpt{color:#334155;margin:0 0 10px 0;line-height:1.5}
     footer{border-top:1px solid var(--border);margin-top:20px;font-size:12px;color:var(--muted);padding-top:10px}
+    .pill{display:inline-flex;gap:6px;align-items:center;background:#eef2ff;border:1px solid #dbeafe;color:#1e40af;border-radius:999px;padding:4px 8px;font-size:12px}
+    .readmore{display:inline-flex;align-items:center;gap:6px}
+    .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
   </style>
 </head>
 <body>
@@ -107,9 +147,9 @@
       <a class="brand" href="enindex.html" aria-label="Amsler Grid home">
         <svg viewBox="0 0 96 96" aria-hidden="true">
           <defs><pattern id="p" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M12 0H0M0 0V12" fill="none" stroke="currentColor" opacity=".35" stroke-width="1"/></pattern></defs>
-        <rect x="2" y="2" width="92" height="92" rx="12" fill="url(#p)" stroke="currentColor" stroke-width="3"/>
-        <path d="M48 4v88M4 48h88" stroke="currentColor" stroke-width="3"/>
-        <circle cx="48" cy="48" r="3.6" fill="currentColor"/></svg>
+          <rect x="2" y="2" width="92" height="92" rx="12" fill="url(#p)" stroke="currentColor" stroke-width="3"/>
+          <path d="M48 4v88M4 48h88" stroke="currentColor" stroke-width="3"/>
+          <circle cx="48" cy="48" r="3.6" fill="currentColor"/></svg>
         <strong>Amsler<span style="color:var(--primary)">Grid</span></strong>
       </a>
       <div class="actions">
@@ -121,50 +161,173 @@
 
     <section class="hero">
       <h1>Macula Blog: Clear and Simple Articles</h1>
-      <p>The following topics provide quick insights into the macula (yellow spot), Amsler grid, and visual health. <b>Note:</b> These posts are for educational purposes only; consult your ophthalmologist for diagnosis or treatment.</p>
+      <p>The topics below give quick insights into the macula (yellow spot), the Amsler grid, and visual health. <b>Note:</b> Content is educational only; for diagnosis and treatment, consult your eye doctor.</p>
+      <div class="toolbar" role="search">
+        <div class="search" aria-label="Search blog">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 18a8 8 0 1 1 5.293-14.293A8 8 0 0 1 10 18Zm8.707-1.293-3.403-3.403"/></svg>
+          <input id="q" type="search" placeholder="Search by title or keyword…" aria-label="Search by title or keyword">
+        </div>
+        <div class="tags" aria-label="Topic tags">
+          <button class="tag active" data-tag="all" aria-pressed="true">All</button>
+          <button class="tag" data-tag="basic">Basics</button>
+          <button class="tag" data-tag="symptom">Symptoms</button>
+          <button class="tag" data-tag="risk">Risk</button>
+          <button class="tag" data-tag="test">Amsler Test</button>
+          <button class="tag" data-tag="nutrition">Nutrition</button>
+          <button class="tag" data-tag="lifestyle">Lifestyle</button>
+        </div>
+      </div>
     </section>
 
     <main id="posts" class="grid" aria-live="polite">
+      <!-- 1 -->
       <article class="card" data-tags="basic">
-        <h2 id="what-is-macula"><a href="#what-is-macula">What Is the Macula? A Quick Look at AMD</a></h2>
-        <p class="excerpt">The macula is the central part of the retina responsible for sharp and detailed vision. Age-related macular degeneration (AMD) damages this area, leading to difficulties in reading, recognizing faces, and fine tasks.</p>
+        <header>
+          <h2 id="what-is-macula"><a href="#what-is-macula">What Is the Macula? A Quick Look at AMD</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill" title="Category">Basics</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          The macula is the central area of the retina responsible for sharp, detailed vision. Age-related macular degeneration (AMD) damages this area and can make reading, face recognition, and fine work difficult.
+        </p>
+        <p><a class="readmore" href="#what-is-macula" aria-label="Read the article">Read more</a></p>
       </article>
 
+      <!-- 2 -->
       <article class="card" data-tags="basic">
-        <h2 id="dry-wet-amd"><a href="#dry-wet-amd">Dry vs. Wet AMD: Key Differences</a></h2>
-        <p class="excerpt">Dry AMD is more common and progresses slowly with “drusen” buildup under the retina. Wet AMD involves abnormal blood vessel leakage and may cause sudden vision loss, requiring urgent care.</p>
+        <header>
+          <h2 id="dry-wet-amd"><a href="#dry-wet-amd">Dry vs. Wet AMD: Key Differences</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill">Basics</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          Dry AMD is more common and typically progresses slowly with “drusen” deposits under the retina.
+          Wet AMD involves abnormal blood vessels that leak; vision can be affected quickly and often needs urgent treatment.
+        </p>
+        <p><a class="readmore" href="#dry-wet-amd">Read more</a></p>
       </article>
 
+      <!-- 3 -->
       <article class="card" data-tags="test">
-        <h2 id="amsler-interpret"><a href="#amsler-interpret">How to Interpret the Amsler Grid Test</a></h2>
-        <p class="excerpt">If lines appear wavy, broken, or missing when focusing on the center dot, it may indicate abnormality. The test is not diagnostic but helps track changes. See your doctor for confirmation.</p>
+        <header>
+          <h2 id="amsler-interpret"><a href="#amsler-interpret">How to Interpret the Amsler Grid Test</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill">Amsler</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          If lines look bent, broken, blurry, or if you notice a dark/blank spot while fixating on the center dot, your result may be abnormal.
+          This is not a diagnosis; use the <a href="enindex.html">Amsler test</a> for regular monitoring and see an eye doctor if you spot changes.
+        </p>
+        <p><a class="readmore" href="#amsler-interpret">Read more</a></p>
       </article>
 
+      <!-- 4 -->
       <article class="card" data-tags="symptom">
-        <h2 id="amd-symptoms"><a href="#amd-symptoms">AMD Symptoms: When to See a Doctor</a></h2>
-        <p class="excerpt">Wavy lines, dark or blank spots in the center, faded colors, or difficulty reading fine print warrant medical evaluation, especially if the change occurs suddenly.</p>
+        <header>
+          <h2 id="amd-symptoms"><a href="#amd-symptoms">AMD Symptoms: When to See a Doctor</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill">Symptoms</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          Wavy straight lines, a dark/blank spot in the center, faded colors, and difficulty reading small print may require urgent evaluation—especially if the change is sudden.
+        </p>
+        <p><a class="readmore" href="#amd-symptoms">Read more</a></p>
       </article>
 
+      <!-- 5 -->
       <article class="card" data-tags="risk">
-        <h2 id="risk-factors"><a href="#risk-factors">Risk Factors: Age, Genetics, Smoking, and More</a></h2>
-        <p class="excerpt">Older age, family history, smoking, poor diet, and uncontrolled cardiovascular issues increase the risk of AMD. Regular eye exams and healthy habits are key.</p>
+        <header>
+          <h2 id="risk-factors"><a href="#risk-factors">Risk Factors: Age, Genetics, Smoking, and More</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill">Risk</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          Older age, family history, smoking, unhealthy diet, and uncontrolled cardiovascular issues can raise your risk.
+          Regular eye exams and healthy habits matter.
+        </p>
+        <p><a class="readmore" href="#risk-factors">Read more</a></p>
       </article>
 
+      <!-- 6 -->
       <article class="card" data-tags="nutrition">
-        <h2 id="areds2-nutrition"><a href="#areds2-nutrition">AREDS2 and Nutrition: Do Supplements Help?</a></h2>
-        <p class="excerpt">The AREDS2 formula, containing lutein, zeaxanthin, vitamins C and E, zinc, and copper, may help slow progression in specific AMD stages. Always consult your doctor before supplementing.</p>
+        <header>
+          <h2 id="areds2-nutrition"><a href="#areds2-nutrition">AREDS2 and Nutrition: Do Supplements Help?</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill">Nutrition</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          The AREDS2 formula (lutein, zeaxanthin, vitamins C/E, zinc, copper) may help slow progression in certain AMD stages.
+          Discuss supplementation with your doctor.
+        </p>
+        <p><a class="readmore" href="#areds2-nutrition">Read more</a></p>
       </article>
 
+      <!-- 7 -->
       <article class="card" data-tags="lifestyle">
-        <h2 id="lifestyle-tips"><a href="#lifestyle-tips">Lifestyle Tips: Light, Screens, and Eye Hygiene</a></h2>
-        <p class="excerpt">Proper lighting, regular screen breaks (20-20-20 rule), UV-protective glasses, and quitting smoking can improve comfort and lower risks.</p>
+        <header>
+          <h2 id="lifestyle-tips"><a href="#lifestyle-tips">Lifestyle Tips: Light, Screens, and Eye Hygiene</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill">Lifestyle</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          Adequate lighting, screen breaks (20-20-20 rule), UV-protective glasses, and quitting smoking can improve day-to-day visual comfort and reduce risks.
+        </p>
+        <p><a class="readmore" href="#lifestyle-tips">Read more</a></p>
       </article>
 
+      <!-- 8 -->
       <article class="card" data-tags="test">
-        <h2 id="home-monitoring"><a href="#home-monitoring">Amsler Grid Home Monitoring: How Often to Test</a></h2>
-        <p class="excerpt">If your doctor hasn’t advised otherwise, weekly testing is practical. Keep lighting and distance consistent, and book an appointment if you notice any changes.</p>
+        <header>
+          <h2 id="home-monitoring"><a href="#home-monitoring">Amsler Grid Home Monitoring: How Often to Test</a></h2>
+          <div class="meta">
+            <time datetime="2025-11-03">November 3, 2025</time>
+            <span class="dot"></span><span>~2 min</span>
+            <span class="pill">Amsler</span>
+          </div>
+        </header>
+        <p class="excerpt">
+          If you don’t have specific advice from your doctor, weekly checks are practical. Keep light, distance, and glasses/contacts consistent each time. Book an appointment if you notice changes.
+        </p>
+        <p><a class="readmore" href="#home-monitoring">Read more</a></p>
       </article>
     </main>
+
+    <section aria-labelledby="faq-title" class="card" style="margin-top:14px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)">
+      <h2 id="faq-title">Quick FAQ</h2>
+      <details>
+        <summary>My Amsler grid looks abnormal—what should I do?</summary>
+        <p>Don’t panic. This is a screening tool. Arrange an appointment with an eye specialist as soon as possible.</p>
+      </details>
+      <details>
+        <summary>Should I save my results?</summary>
+        <p>Keeping dated notes or screenshots helps you notice changes over time.</p>
+      </details>
+      <details>
+        <summary>Should I do the test with glasses?</summary>
+        <p>Use the same correction you normally wear (glasses/contacts) during the test.</p>
+      </details>
+    </section>
 
     <footer>
       © <span id="year"></span> Amsler Grid — For educational use only. | <a href="enindex.html">Amsler Test</a> | <a href="#top" id="toplink">Back to Top</a>
@@ -172,11 +335,62 @@
   </div>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('toplink').addEventListener('click', e => {
-      e.preventDefault();
-      window.scrollTo({top:0,behavior:'smooth'});
+
+    // Simple search + tag filtering (mirrors TR)
+    const input = document.getElementById('q');
+    const tagBtns = Array.from(document.querySelectorAll('.tag'));
+    const cards = Array.from(document.querySelectorAll('article.card'));
+    let activeTag = 'all';
+
+    function normalize(t){ return (t || '').toLowerCase().replace(/\s+/g,' ').trim(); }
+
+    function applyFilters(){
+      const q = normalize(input.value);
+      cards.forEach(card=>{
+        const tags = (card.getAttribute('data-tags')||'').split(',').map(normalize);
+        const text = normalize(card.textContent);
+        const tagMatch = activeTag === 'all' || tags.includes(activeTag);
+        const qMatch = !q || text.includes(q);
+        card.style.display = (tagMatch && qMatch) ? '' : 'none';
+      });
+    }
+
+    if (input) input.addEventListener('input', applyFilters);
+
+    tagBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        tagBtns.forEach(b=>{
+          b.classList.toggle('active', b===btn);
+          b.setAttribute('aria-pressed', b===btn ? 'true' : 'false');
+        });
+        activeTag = btn.dataset.tag;
+        applyFilters();
+      });
     });
+
+    // Smooth scroll for hash anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null,'','#'+id);
+        }
+      });
+    });
+
+    // Back to top
+    const topLink = document.getElementById('toplink');
+    if (topLink){
+      topLink.addEventListener('click', (e)=>{
+        e.preventDefault();
+        window.scrollTo({top:0,behavior:'smooth'});
+      });
+    }
   </script>
 </body>
 </html>
