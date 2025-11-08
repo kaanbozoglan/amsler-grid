@@ -9,17 +9,18 @@
   <meta name="description" content="Evde 30 saniyede Amsler grid testi yapın. Makula sağlığınızı hızlıca kontrol edin. Ücretsiz ve eğitsel test!" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="keywords" content="Amsler grid testi online, Amsler testi online ücretsiz, makula testi online, ücretsiz makula testi, Amsler grid test, göz testi online, sarı nokta testi" />
-  <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/index.html" />
+  <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/" />
+
   <!-- TR & EN hreflang -->
-  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/index.html" hreflang="tr" />
-  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/enindex.html" hreflang="en" />
-  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/index.html" hreflang="x-default" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/" hreflang="tr" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/en/" hreflang="en" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/" hreflang="x-default" />
 
   <!-- 🟦 Open Graph / Sosyal Paylaşım -->
   <meta property="og:title" content="Amsler Grid Testi Online | Ücretsiz Makula Testi" />
   <meta property="og:description" content="30 sn’de çevrimiçi Amsler testi. Eğitsel amaçlıdır; şüphede hekime başvurun." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kaanbozoglan.github.io/amsler-grid/index.html" />
+  <meta property="og:url" content="https://kaanbozoglan.github.io/amsler-grid/" />
   <meta property="og:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
 
   <!-- 🐦 Twitter -->
@@ -29,7 +30,6 @@
   <meta name="twitter:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
 
   <!-- 📈 Google Analytics 4 -->
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK52X0KBS6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -44,7 +44,7 @@
     "@context":"https://schema.org",
     "@type":"MedicalWebPage",
     "name":"Amsler Grid Testi Online",
-    "url":"https://kaanbozoglan.github.io/amsler-grid/index.html",
+    "url":"https://kaanbozoglan.github.io/amsler-grid/",
     "isAccessibleForFree":true,
     "about":{"@type":"MedicalTest","name":"Amsler Grid Test"},
     "medicalSpecialty":"Ophthalmology",
@@ -257,7 +257,6 @@ body.test-only header,
 body.test-only .row,
 body.test-only footer,
 body.test-only .sticky-cta { display:none !important; }
-/* >>> YENİ: Test modunda H1'i gizle */
 body.test-only h1 { display:none !important; }
 
 body.test-only .container{ max-width:none; padding:0; }
@@ -275,7 +274,7 @@ body.test-only #exitTestBtn{ display:inline-flex; }
 
     <header style="display:flex;gap:12px;align-items:center;justify-content:space-between">
       <!-- LOGOLU BAŞLIK -->
-      <a class="brand" href="#" aria-label="Amsler Grid">
+      <a class="brand" href="./" aria-label="Amsler Grid">
         <svg class="logo" viewBox="0 0 96 96" role="img" aria-hidden="true">
           <defs>
             <pattern id="amslerGridPattern" width="12" height="12" patternUnits="userSpaceOnUse">
@@ -291,8 +290,7 @@ body.test-only #exitTestBtn{ display:inline-flex; }
 
       <!-- SIRA: Dil → Blog → Tema → Kalibrasyon → PNG → Primary CTA -->
       <div class="actions">
-        <a href="enindex.html" class="btn">English</a>
-        <!-- 🆕 BLOG BUTONU: trblog.html'e yönlendirildi -->
+        <a href="en/" class="btn">English</a>
         <a href="trblog.html" class="btn" aria-label="Blog sayfası">Blog</a>
         <button id="themeBtn" class="btn" aria-label="Tema değiştir">Koyu Tema</button>
         <button id="calBtn" class="btn">Kalibrasyon</button>
@@ -444,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('test-only');
   }
 
-  // >>> YENİ: Mobilde yeni sekme, masaüstünde sayfa içi test-only
+  // Mobilde yeni sekme, masaüstünde sayfa içi test-only
   function isMobile(){
     return window.matchMedia('(max-width: 640px)').matches || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   }
@@ -452,9 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isMobile()){
       const url = (location.origin + location.pathname + (location.search || '') + '#test-only');
       const w = window.open(url, '_blank', 'noopener');
-      if (!w) { // popup engellenirse fallback
-        location.hash = '#test-only';
-      }
+      if (!w) { location.hash = '#test-only'; }
     } else {
       enterTestOnly();
     }
@@ -462,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   startBtns.forEach(btn=>{
     btn.addEventListener('click', (e)=>{
-      e.preventDefault(); // anchor'ın #test'e atlamasını önle
+      e.preventDefault();
       openTestMode();
     });
   });
