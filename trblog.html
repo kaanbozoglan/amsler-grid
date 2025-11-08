@@ -8,6 +8,8 @@
   <title>Makula Blogu | Amsler Grid, AMD ve Göz Sağlığı</title>
   <meta name="description" content="Makula ve Amsler grid hakkında anlaşılır, SEO uyumlu yazılar: AMD nedir, belirtiler, risk faktörleri, Amsler grid testi yorumu, beslenme (AREDS2), yaşam tarzı ve daha fazlası." />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+  <!-- Canonical & hreflang -->
   <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/blog.html" />
   <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/blog.html" hreflang="tr" />
   <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/enblog.html" hreflang="en" />
@@ -113,6 +115,8 @@
     .hero{padding-block:16px}
     .hero h1{margin:6px 0 8px 0;font-size:28px}
     .hero p{margin:0;color:var(--muted)}
+    nav.breadcrumbs{font-size:12px;color:var(--muted);margin-bottom:8px}
+    nav.breadcrumbs a{color:inherit}
     .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
     .search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 10px}
     .search input{border:0;outline:none;background:transparent;flex:1}
@@ -127,8 +131,6 @@
     h2{margin:0 0 6px 0;font-size:18px}
     .excerpt{color:#334155;margin:0 0 10px 0;line-height:1.5}
     footer{border-top:1px solid var(--border);margin-top:20px;font-size:12px;color:var(--muted);padding-top:10px}
-    nav.breadcrumbs{font-size:12px;color:var(--muted);margin-bottom:8px}
-    nav.breadcrumbs a{color:inherit}
     .pill{display:inline-flex;gap:6px;align-items:center;background:#eef2ff;border:1px solid #dbeafe;color:#1e40af;border-radius:999px;padding:4px 8px;font-size:12px}
     .readmore{display:inline-flex;align-items:center;gap:6px}
     .sr-only{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
@@ -143,15 +145,17 @@
 
     <header>
       <a class="brand" href="index.html" aria-label="Amsler Grid ana sayfa">
-        <svg viewBox="0 0 96 96" aria-hidden="true">
+        <svg viewBox="0 0 96 96" aria-hidden="true" role="img">
           <defs><pattern id="p" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M12 0H0M0 0V12" fill="none" stroke="currentColor" opacity=".35" stroke-width="1"/></pattern></defs>
-        <rect x="2" y="2" width="92" height="92" rx="12" fill="url(#p)" stroke="currentColor" stroke-width="3"/>
-        <path d="M48 4v88M4 48h88" stroke="currentColor" stroke-width="3"/>
-        <circle cx="48" cy="48" r="3.6" fill="currentColor"/></svg>
+          <rect x="2" y="2" width="92" height="92" rx="12" fill="url(#p)" stroke="currentColor" stroke-width="3"/>
+          <path d="M48 4v88M4 48h88" stroke="currentColor" stroke-width="3"/>
+          <circle cx="48" cy="48" r="3.6" fill="currentColor"/>
+        </svg>
         <strong>Amsler<span style="color:var(--primary)">Grid</span></strong>
       </a>
       <div class="actions">
-        <a class="btn" href="enblog.html" lang="en" hreflang="en">English</a>
+        <!-- ✅ EN butonu düzeltildi -->
+        <a class="btn" href="enblog.html" lang="en" hreflang="en" aria-label="Switch to English">English</a>
         <a class="btn" href="index.html">Amsler Testi</a>
         <a class="btn primary" href="#yazilar">Yazılara Git</a>
       </div>
@@ -340,29 +344,32 @@
     document.getElementById('yil').textContent = new Date().getFullYear();
 
     // Basit arama + etiket filtreleme
-    const input = document.getElementById('q');
+    const input   = document.getElementById('q');
     const tagBtns = Array.from(document.querySelectorAll('.tag'));
-    const cards = Array.from(document.querySelectorAll('article.card'));
+    const cards   = Array.from(document.querySelectorAll('article.card'));
     let activeTag = 'hepsi';
 
     function normalize(t){ return (t || '').toLowerCase().replace(/\s+/g,' ').trim(); }
 
     function applyFilters(){
-      const q = normalize(input.value);
+      const q = normalize(input ? input.value : '');
       cards.forEach(card=>{
         const tags = (card.getAttribute('data-tags')||'').split(',').map(normalize);
         const text = normalize(card.textContent);
         const tagMatch = activeTag === 'hepsi' || tags.includes(activeTag);
-        const qMatch = !q || text.includes(q);
+        const qMatch   = !q || text.includes(q);
         card.style.display = (tagMatch && qMatch) ? '' : 'none';
       });
     }
 
-    input.addEventListener('input', applyFilters);
+    if (input) input.addEventListener('input', applyFilters);
 
     tagBtns.forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        tagBtns.forEach(b=>{ b.classList.toggle('active', b===btn); b.setAttribute('aria-pressed', b===btn ? 'true':'false'); });
+        tagBtns.forEach(b=>{
+          b.classList.toggle('active', b===btn);
+          b.setAttribute('aria-pressed', b===btn ? 'true' : 'false');
+        });
         activeTag = btn.dataset.tag;
         applyFilters();
       });
@@ -382,10 +389,16 @@
     });
 
     // "Yukarı çık"
-    document.getElementById('toplink').addEventListener('click', (e)=>{
-      e.preventDefault();
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
+    const topLink = document.getElementById('toplink');
+    if (topLink){
+      topLink.addEventListener('click', (e)=>{
+        e.preventDefault();
+        window.scrollTo({top:0,behavior:'smooth'});
+      });
+    }
+
+    // ✅ İlk yüklemede tüm yazıları göster
+    applyFilters();
   </script>
 </body>
 </html>
