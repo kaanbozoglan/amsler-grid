@@ -93,7 +93,7 @@
     .brand svg{width:32px;height:32px;color:var(--primary)}
     .brand strong{font-weight:800;letter-spacing:.2px}
     .actions{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:9px 14px;box-shadow:var(--shadow);font-weight:600;display:inline-flex;align-items:center;gap:8px}
+    .btn{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:9px 14px;box-shadow:var(--shadow);font-weight:600;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
     .btn:hover{transform:translateY(-1px)}
     .btn.primary{background:var(--primary);color:#fff;border-color:transparent}
     .hero{padding-block:16px}
@@ -124,7 +124,6 @@
   <div class="container">
 
     <nav class="breadcrumbs" aria-label="breadcrumb">
-      <!-- ✅ kökten tam yol -->
       <a href="/amsler-grid/index.html">Ana Sayfa</a> › <span>Makula Blogu</span>
     </nav>
 
@@ -139,8 +138,8 @@
         <strong>Amsler<span style="color:var(--primary)">Grid</span></strong>
       </a>
       <div class="actions">
-        <!-- ✅ EN butonu kökten tam yol -->
-        <a class="btn" href="/amsler-grid/enblog.html" lang="en" hreflang="en" aria-label="Switch to English">English</a>
+        <!-- ✅ EN butonu: JS ile sağlam yönlendirme -->
+        <a id="btn-en" class="btn" href="enblog.html" lang="en" hreflang="en" aria-label="Switch to English">English</a>
         <a class="btn" href="/amsler-grid/index.html">Amsler Testi</a>
         <a class="btn primary" href="#yazilar">Yazılara Git</a>
       </div>
@@ -167,17 +166,11 @@
     </section>
 
     <main id="yazilar" class="grid" aria-live="polite">
-      <!-- yazılar (8 kart) burada, içeriği değişmedi -->
-      <!-- ... mevcut kartlarınız ... -->
-      <!-- (Kart içeriklerini aynen sizin son ilettiğiniz gibi bırakıyorum) -->
+      <!-- 8 kart (içerik aynı) -->
       <article class="card" data-tags="temel">
         <header>
           <h2 id="makula-nedir"><a href="#makula-nedir">Makula (Sarı Nokta) Nedir? AMD’ye Kısa Bakış</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill" title="Kategori">Temel</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill" title="Kategori">Temel</span></div>
         </header>
         <p class="excerpt">Makula, retinanın merkezinde net ve detaylı görmeden sorumlu bölgedir. Yaşa bağlı makula dejenerasyonu (AMD), bu bölgedeki hücrelerin hasarıyla ortaya çıkar ve özellikle okuma, yüz tanıma, ince işlerde zorlanmaya yol açabilir.</p>
         <p><a class="readmore" href="#makula-nedir" aria-label="Yazıyı oku">Devamını oku</a></p>
@@ -186,11 +179,7 @@
       <article class="card" data-tags="temel">
         <header>
           <h2 id="kuru-yas-amd"><a href="#kuru-yas-amd">Kuru ve Yaş Tip AMD: Aradaki Farklar</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill">Temel</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill">Temel</span></div>
         </header>
         <p class="excerpt">Kuru tip, daha sık görülür ve yavaş ilerler; retina altında biriken “drusen” ile seyreder. Yaş tipte ise anormal damarlar sızıntı yapar; görme hızlı etkilenebilir ve tedavi gereksinimi daha acildir.</p>
         <p><a class="readmore" href="#kuru-yas-amd">Devamını oku</a></p>
@@ -199,11 +188,7 @@
       <article class="card" data-tags="test">
         <header>
           <h2 id="amsler-yorum"><a href="#amsler-yorum">Amsler Grid Testi Nasıl Yorumlanır?</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill">Amsler</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill">Amsler</span></div>
         </header>
         <p class="excerpt">Merkez noktaya bakarken çizgilerde eğrilme, kırılma, bulanıklık ya da karanlık alan görüyorsanız sonuç anormal olabilir. Bu bir tanı değildir; <a href="/amsler-grid/index.html">Amsler testini</a> düzenli takip için kullanabilir, anormallikte göz doktoruna görünmelisiniz.</p>
         <p><a class="readmore" href="#amsler-yorum">Devamını oku</a></p>
@@ -212,11 +197,7 @@
       <article class="card" data-tags="belirti">
         <header>
           <h2 id="belirti-doktor"><a href="#belirti-doktor">AMD Belirtileri ve Ne Zaman Doktora Gidilmeli?</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill">Belirti</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill">Belirti</span></div>
         </header>
         <p class="excerpt">Düz çizgilerin dalgalı görünmesi, merkezde karanlık/boş alan, renklerin soluklaşması, küçük yazıları ayırt etmede güçlük gibi bulgular acil değerlendirme gerektirebilir; özellikle ani değişim varsa gecikmeyin.</p>
         <p><a class="readmore" href="#belirti-doktor">Devamını oku</a></p>
@@ -225,11 +206,7 @@
       <article class="card" data-tags="risk">
         <header>
           <h2 id="risk-faktorleri"><a href="#risk-faktorleri">Risk Faktörleri: Yaş, Genetik, Sigara ve Daha Fazlası</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill">Risk</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill">Risk</span></div>
         </header>
         <p class="excerpt">İleri yaş, aile öyküsü, sigara kullanımı, düzensiz beslenme ve kontrolsüz kardiyovasküler sorunlar riskinizi artırabilir. Düzenli kontroller ve sağlıklı alışkanlıklar önemlidir.</p>
         <p><a class="readmore" href="#risk-faktorleri">Devamını oku</a></p>
@@ -238,11 +215,7 @@
       <article class="card" data-tags="beslenme">
         <header>
           <h2 id="areds2-beslenme"><a href="#areds2-beslenme">AREDS2 ve Beslenme: Takviyeler Ne İşe Yarar?</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill">Beslenme</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill">Beslenme</span></div>
         </header>
         <p class="excerpt">AREDS2 formülündeki lutein-zeaksantin, C-E vitaminleri, çinko-bakır gibi bileşenler, belirli AMD evrelerinde ilerlemeyi yavaşlatmada yardımcı olabilir. Takviye kararı için mutlaka hekim görüşü alın.</p>
         <p><a class="readmore" href="#areds2-beslenme">Devamını oku</a></p>
@@ -251,11 +224,7 @@
       <article class="card" data-tags="yasam">
         <header>
           <h2 id="yasam-tarzi"><a href="#yasam-tarzi">Yaşam Tarzı Önerileri: Işık, Ekran ve Göz Hijyeni</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill">Yaşam</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill">Yaşam</span></div>
         </header>
         <p class="excerpt">Yeterli aydınlatma, ekran molaları (20-20-20 kuralı), UV korumalı gözlük ve sigarayı bırakma; günlük yaşamda görsel konforu artırır ve riskleri azaltabilir.</p>
         <p><a class="readmore" href="#yasam-tarzi">Devamını oku</a></p>
@@ -264,11 +233,7 @@
       <article class="card" data-tags="test">
         <header>
           <h2 id="evde-izlem"><a href="#evde-izlem">Amsler Grid ile Evde İzlem: Ne Sıklıkta Yapmalı?</a></h2>
-          <div class="meta">
-            <time datetime="2025-11-03">3 Kasım 2025</time>
-            <span class="dot"></span><span>~2 dk</span>
-            <span class="pill">Amsler</span>
-          </div>
+          <div class="meta"><time datetime="2025-11-03">3 Kasım 2025</time><span class="dot"></span><span>~2 dk</span><span class="pill">Amsler</span></div>
         </header>
         <p class="excerpt">Doktor önerisi yoksa haftalık kontrol pratik bir rutindir. Her testte ışık, mesafe ve gözlük durumu gibi koşulları benzer tutmaya çalışın. Anormallikte randevu alın.</p>
         <p><a class="readmore" href="#evde-izlem">Devamını oku</a></p>
@@ -353,6 +318,30 @@
         window.scrollTo({top:0,behavior:'smooth'});
       });
     }
+
+    // ✅ EN butonu için sağlam yönlendirme (404'a düşmeden ilk bulunanı aç)
+    (function(){
+      const btn = document.getElementById('btn-en');
+      if(!btn) return;
+
+      btn.addEventListener('click', async (e)=>{
+        e.preventDefault();
+        const candidates = [
+          'enblog.html',                // aynı klasör
+          '/amsler-grid/enblog.html',   // repo kökü altında
+          '/enblog.html'                // site kökü (olası)
+        ];
+
+        for (const url of candidates) {
+          try {
+            const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+            if (res.ok) { window.location.href = url; return; }
+          } catch(err) { /* devam et */ }
+        }
+        // Hiçbiri bulunamazsa, son çare sabit hedefe git (GitHub Pages 404 gösterebilir)
+        window.location.href = '/amsler-grid/enblog.html';
+      });
+    })();
 
     // İlk yüklemede filtre uygula
     applyFilters();
