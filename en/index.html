@@ -9,17 +9,18 @@
   <meta name="description" content="Do the Amsler grid test online in 30 seconds. Quickly check your macular vision at home. Free, educational tool — not a medical diagnosis." />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="keywords" content="online Amsler grid test, free macula test, Amsler test online, eye test online, macular test online, Amsler grid online" />
-  <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/enindex.html" />
-  <!-- hreflang (EN ↔ TR ↔ x-default) -->
-  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/enindex.html" hreflang="en" />
-  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/index.html" hreflang="tr" />
-  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/enindex.html" hreflang="x-default" />
+
+  <!-- Canonical & hreflang -->
+  <link rel="canonical" href="https://kaanbozoglan.github.io/amsler-grid/en/" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/en/" hreflang="en" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/" hreflang="tr" />
+  <link rel="alternate" href="https://kaanbozoglan.github.io/amsler-grid/" hreflang="x-default" />
 
   <!-- 🟦 Open Graph -->
   <meta property="og:title" content="Online Amsler Grid Test | Free Macula Check" />
   <meta property="og:description" content="30-second online Amsler test. Educational tool — consult an eye doctor if anything seems abnormal." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://kaanbozoglan.github.io/amsler-grid/enindex.html" />
+  <meta property="og:url" content="https://kaanbozoglan.github.io/amsler-grid/en/" />
   <meta property="og:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
 
   <!-- 🐦 Twitter -->
@@ -29,7 +30,6 @@
   <meta name="twitter:image" content="https://kaanbozoglan.github.io/amsler-grid/og-amsler.png" />
 
   <!-- 📈 Google Analytics 4 -->
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QK52X0KBS6"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -44,7 +44,7 @@
     "@context":"https://schema.org",
     "@type":"MedicalWebPage",
     "name":"Online Amsler Grid Test",
-    "url":"https://kaanbozoglan.github.io/amsler-grid/enindex.html",
+    "url":"https://kaanbozoglan.github.io/amsler-grid/en/",
     "isAccessibleForFree":true,
     "about":{"@type":"MedicalTest","name":"Amsler Grid Test"},
     "medicalSpecialty":"Ophthalmology",
@@ -262,7 +262,7 @@ body.test-only .container{ max-width:none; padding:0; }
 body.test-only .grid-wrap{ min-height:100vh; }
 body.test-only .frame{ border:0; border-radius:0; padding:0; box-shadow:none; background:var(--card); }
 body.test-only #grid{ width:min(96vmin, 100vw); height:auto; }
-body.test-only #exitTestBtn{ display:none; } /* English page uses sticky CTA; keep exit hidden unless you add it */
+body.test-only #exitTestBtn{ display:none; }
   </style>
 </head>
 <body>
@@ -273,7 +273,7 @@ body.test-only #exitTestBtn{ display:none; } /* English page uses sticky CTA; ke
 
     <header style="display:flex;gap:12px;align-items:center;justify-content:space-between">
       <!-- LOGO + Wordmark -->
-      <a class="brand" href="#" aria-label="Amsler Grid">
+      <a class="brand" href="./" aria-label="Amsler Grid">
         <svg class="logo" viewBox="0 0 96 96" role="img" aria-hidden="true">
           <defs>
             <pattern id="amslerGridPattern" width="12" height="12" patternUnits="userSpaceOnUse">
@@ -289,8 +289,9 @@ body.test-only #exitTestBtn{ display:none; } /* English page uses sticky CTA; ke
 
       <!-- ORDER: Language → Blog → Theme → Calibration → PNG → Primary CTA -->
       <div class="actions">
-        <a href="index.html" class="btn" aria-label="Switch to Turkish">Türkçe</a>
-        <!-- 🆕 BLOG BUTTON -->
+        <!-- Türkçe'ye mutlak kök: TR ana sayfa -->
+        <a href="/amsler-grid/" class="btn" aria-label="Switch to Turkish">Türkçe</a>
+        <!-- Blog (EN klasöründe ise dosya adını buna göre düzenleyin) -->
         <a href="enblog.html" class="btn" aria-label="Go to blog page">Blog</a>
         <button id="themeBtn" class="btn" aria-label="Toggle theme">Dark Theme</button>
         <button id="calBtn" class="btn">Calibration</button>
@@ -370,7 +371,7 @@ body.test-only #exitTestBtn{ display:none; } /* English page uses sticky CTA; ke
       <div style="display:flex;justify-content:center;padding:16px 0">
         <div id="cardBox" style="width:320px;height:202px"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
         <div style="font-size:12px;color:var(--muted)">Computed px/mm: <span id="calcPxmm">3.740</span></div>
         <div style="display:flex;gap:8px">
           <button id="calCancel" class="btn">Cancel</button>
@@ -441,7 +442,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('test-only');
   }
 
-  // mobile opens new tab; desktop stays inline
   function isMobile(){
     return window.matchMedia('(max-width: 640px)').matches || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   }
@@ -449,9 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isMobile()){
       const url = (location.origin + location.pathname + (location.search || '') + '#test-only');
       const w = window.open(url, '_blank', 'noopener');
-      if (!w) { // popup blocked → fallback
-        location.hash = '#test-only';
-      }
+      if (!w) { location.hash = '#test-only'; }
     } else {
       enterTestOnly();
     }
