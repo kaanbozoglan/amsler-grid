@@ -138,8 +138,8 @@
         <strong>Amsler<span style="color:var(--primary)">Grid</span></strong>
       </a>
       <div class="actions">
-        <!-- ✅ EN butonu: JS ile sağlam yönlendirme -->
-        <a id="btn-en" class="btn" href="enblog.html" lang="en" hreflang="en" aria-label="Switch to English">English</a>
+        <!-- ✅ EN butonu: doğrudan doğru path -->
+        <a class="btn" href="/amsler-grid/enblog.html" lang="en" hreflang="en" aria-label="Switch to English">English</a>
         <a class="btn" href="/amsler-grid/index.html">Amsler Testi</a>
         <a class="btn primary" href="#yazilar">Yazılara Git</a>
       </div>
@@ -318,30 +318,6 @@
         window.scrollTo({top:0,behavior:'smooth'});
       });
     }
-
-    // ✅ EN butonu için sağlam yönlendirme (404'a düşmeden ilk bulunanı aç)
-    (function(){
-      const btn = document.getElementById('btn-en');
-      if(!btn) return;
-
-      btn.addEventListener('click', async (e)=>{
-        e.preventDefault();
-        const candidates = [
-          'enblog.html',                // aynı klasör
-          '/amsler-grid/enblog.html',   // repo kökü altında
-          '/enblog.html'                // site kökü (olası)
-        ];
-
-        for (const url of candidates) {
-          try {
-            const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
-            if (res.ok) { window.location.href = url; return; }
-          } catch(err) { /* devam et */ }
-        }
-        // Hiçbiri bulunamazsa, son çare sabit hedefe git (GitHub Pages 404 gösterebilir)
-        window.location.href = '/amsler-grid/enblog.html';
-      });
-    })();
 
     // İlk yüklemede filtre uygula
     applyFilters();
