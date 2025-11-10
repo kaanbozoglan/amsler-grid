@@ -138,8 +138,8 @@
         <strong>Amsler<span style="color:var(--primary)">Grid</span></strong>
       </a>
       <div class="actions">
-        <!-- ✅ EN butonu: doğrudan doğru path -->
-        <a class="btn" href="/amsler-grid/enblog.html" lang="en" hreflang="en" aria-label="Switch to English">English</a>
+        <!-- ✅ EN butonu: JS ile sağlam yönlendirme -->
+        <a id="btn-en" class="btn" href="enblog.html" lang="en" hreflang="en" aria-label="Switch to English">English</a>
         <a class="btn" href="/amsler-grid/index.html">Amsler Testi</a>
         <a class="btn primary" href="#yazilar">Yazılara Git</a>
       </div>
@@ -318,6 +318,38 @@
         window.scrollTo({top:0,behavior:'smooth'});
       });
     }
+
+    // ✅ EN butonu için sağlam yönlendirme (klasöre göre)
+    (function(){
+      const btn = document.getElementById('btn-en');
+      if(!btn) return;
+
+      btn.addEventListener('click', async (e)=>{
+        e.preventDefault();
+
+        // Mevcut sayfanın klasörünü çıkar (ör: /amsler-grid/)
+        const currentPath = window.location.pathname;   // /amsler-grid/blog.html veya /blog.html
+        const baseDir = currentPath.replace(/[^/]+$/, ''); // sondaki dosya adını at
+
+        // Olası yollar (önce aynı klasör)
+        const candidates = [
+          baseDir + 'enblog.html',
+          '/amsler-grid/enblog.html',
+          'enblog.html',
+          '/enblog.html'
+        ];
+
+        for (const url of candidates) {
+          try {
+            const res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
+            if (res.ok) { window.location.href = url; return; }
+          } catch(err) { /* sıradakine geç */ }
+        }
+
+        // Son çare: bilgilendir
+        alert('English sayfası (enblog.html) bulunamadı. Lütfen dosya adını ve konumunu kontrol edin.');
+      });
+    })();
 
     // İlk yüklemede filtre uygula
     applyFilters();
