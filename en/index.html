@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rs = getComputedStyle(document.documentElement);
     const bg  = rs.getPropertyValue(dark?'--bg-dark':'--bg').trim() || '#fff';
     const fg  = rs.getPropertyValue(dark?'--fg-dark':'--fg').trim() || '#111';
-    const mid = rs.getPropertyValue(dark?'--mid-dark':'--mid').trim() || '#6b7280;
+    const mid = rs.getPropertyValue(dark?'--mid-dark':'--mid').trim() || '#6b7280';
 
     const thin  = Math.max(1, Math.round(1*scale));
     const thick = Math.max(2, Math.round(2*scale));
@@ -578,3 +578,4 @@ document.addEventListener('DOMContentLoaded', () => {
   </script>
 </body>
 </html>
+
