@@ -364,8 +364,8 @@ body.test-only #exitTestBtn{ display:none; }
 
   <a href="#test" class="sticky-cta" aria-label="Start Test">Start Test</a>
 
-  <script>
-/* JS aynı — dokunmadım */
+<script>
+/* JS aynı — sadece PNG Download bloğunu ekledim */
 document.addEventListener('DOMContentLoaded', () => {
   const DEFAULT_PX_PER_MM = 96 / 25.4;
   let pxPerMm = DEFAULT_PX_PER_MM;
@@ -539,6 +539,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ✅✅✅ EKLENEN: Download PNG (Safari fallback dahil) */
+  if (pngBtn){
+    pngBtn.addEventListener('click', async () => {
+      try {
+        const serializer = new XMLSerializer();
+        const src = serializer.serializeToString(grid);
+
+        const svgBlob = new Blob([src], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+
+        img.onload = () => {
+          const w = Math.ceil(+grid.getAttribute('width') || 800);
+          const h = Math.ceil(+grid.getAttribute('height') || 800);
+
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+
+          const ctx = canvas.getContext('2d');
+
+          const dark = document.body.classList.contains('dark');
+          const bg = getComputedStyle(document.documentElement)
+            .getPropertyValue(dark ? '--bg-dark' : '--bg')
+            .trim() || '#ffffff';
+
+          ctx.fillStyle = bg;
+          ctx.fillRect(0, 0, w, h);
+
+          ctx.drawImage(img, 0, 0);
+
+          const download = (blobOrUrl) => {
+            const a = document.createElement('a');
+            const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+            const g = gridCmI ? gridCmI.value : gridSizeCm;
+            const s = squareMmI ? squareMmI.value : squareSizeMm;
+            a.download = `amsler-${g}cm-${s}mm-${theme}.png`;
+            a.href = typeof blobOrUrl === 'string' ? blobOrUrl : URL.createObjectURL(blobOrUrl);
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            if (typeof blobOrUrl !== 'string') URL.revokeObjectURL(a.href);
+          };
+
+          if (canvas.toBlob) {
+            canvas.toBlob((blob) => {
+              if (blob) download(blob);
+            }, 'image/png');
+          } else {
+            download(canvas.toDataURL('image/png'));
+          }
+
+          URL.revokeObjectURL(url);
+        };
+
+        img.onerror = () => {
+          URL.revokeObjectURL(url);
+          alert('PNG export failed. Please check console errors.');
+        };
+
+        img.src = url;
+      } catch (e) {
+        console.error(e);
+        alert('PNG export failed. Please check console errors.');
+      }
+    });
+  }
+  /* ✅✅✅ EK BİTTİ */
+
   const openCal=(show)=>{
     if(!calModal) return;
     calModal.classList.toggle('open',!!show);
@@ -575,7 +646,8 @@ document.addEventListener('DOMContentLoaded', () => {
   updateRangeFill(cardRange);
   redraw();
 });
-  </script>
+</script>
 </body>
 </html>
+
 
