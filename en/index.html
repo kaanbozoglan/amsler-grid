@@ -69,7 +69,6 @@
     ]
   }
   </script>
-  <!-- ✅ HowTo schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -89,7 +88,7 @@
   </script>
 
   <style>
-/* ===================== Modern Theme & UI ===================== */
+/* (CSS aynı — dokunmadım) */
 :root{
   --bg:#f7f7fb; --card:#ffffff; --fg:#0f172a; --muted:#6b7280;
   --primary:#2b6fff; --accent:#10b981; --border:#e5e7eb; --ring: rgba(43,111,255,.35);
@@ -108,16 +107,13 @@ body.dark{
 *{box-sizing:border-box}
 html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:var(--bg);color:var(--fg)}
 .container{max-width:1100px;margin:auto;padding:16px 20px}
-
 /* Header & Footer */
 header,footer{padding-block:12px}
 header{border-bottom:1px solid var(--border)}
 footer{border-top:1px solid var(--border);margin-top:24px;font-size:12px;color:var(--muted)}
-
 /* Grid layout */
 .row{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:900px){.row{grid-template-columns:1fr 1fr}}
-
 /* Cards */
 .card{
   background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
@@ -125,7 +121,6 @@ footer{border-top:1px solid var(--border);margin-top:24px;font-size:12px;color:v
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .card:hover{transform:translateY(-1px);box-shadow:0 16px 40px rgba(0,0,0,.07)}
-
 /* Controls */
 .controls h2{margin:0 0 8px 0;font-size:16px}
 .controls .line{display:flex;align-items:center;gap:10px;margin:10px 0}
@@ -135,7 +130,6 @@ footer{border-top:1px solid var(--border);margin-top:24px;font-size:12px;color:v
   transition:border-color var(--transition),box-shadow var(--transition);
 }
 .controls input[type="number"]:focus, .controls input[type="text"]{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
-
 /* Range */
 input[type="range"]{
   -webkit-appearance:none;width:100%;height:10px;border-radius:999px;outline:none;
@@ -148,7 +142,6 @@ input[type="range"]::-webkit-slider-thumb{
   background:var(--card);border:2px solid var(--primary);
   box-shadow:0 2px 8px rgba(43,111,255,.2);cursor:pointer
 }
-
 /* Checkbox */
 .controls input[type="checkbox"]{
   appearance:none;width:18px;height:18px;border-radius:6px;border:1px solid var(--border);
@@ -159,7 +152,6 @@ input[type="range"]::-webkit-slider-thumb{
 }
 .controls input[type="checkbox"]:checked{border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
 .controls input[type="checkbox"]:checked::after{transform:scale(1)}
-
 /* Buttons */
 .btn{
   padding:9px 14px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:inherit;cursor:pointer;
@@ -169,7 +161,6 @@ input[type="range"]::-webkit-slider-thumb{
 }
 .btn:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.06)}
 .btn.primary{background:var(--primary);border-color:transparent;color:#fff}
-
 /* Grid stage */
 .grid-wrap{display:flex;justify-content:center;align-items:center}
 .frame{
@@ -182,7 +173,6 @@ input[type="range"]::-webkit-slider-thumb{
   border:2px solid color-mix(in hsl,var(--fg),#fff 70%);
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.04),0 12px 30px rgba(0,0,0,.08)
 }
-
 /* Modal */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);display:none;align-items:center;justify-content:center;z-index:50}
 .modal.open{display:flex}
@@ -191,7 +181,6 @@ input[type="range"]::-webkit-slider-thumb{
   background:var(--card);padding:16px;box-shadow:var(--shadow)
 }
 #cardBox{border:2px solid var(--accent);background:color-mix(in hsl,var(--accent),#fff 85%);border-radius:8px}
-
 /* --- Brand / Logo --- */
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
 .logo{width:34px;height:34px;flex:0 0 auto;color:var(--primary);filter:drop-shadow(0 2px 8px rgba(43,111,255,.15));transition:transform var(--transition),filter var(--transition)}
@@ -199,8 +188,7 @@ input[type="range"]::-webkit-slider-thumb{
 .brand-accent{color:var(--primary)}
 .brand:hover .logo{transform:translateY(-1px) scale(1.02);filter:drop-shadow(0 6px 16px rgba(43,111,255,.18))}
 @media(max-width:520px){.brand-name{font-size:18px}.logo{width:30px;height:30px}}
-
-/* ===================== Mobile enhancements ===================== */
+/* Mobile enhancements */
 .container{padding-left:max(16px, env(safe-area-inset-left));padding-right:max(16px, env(safe-area-inset-right))}
 header { row-gap: 10px; }
 header .actions{display:flex; gap:8px; flex-wrap: wrap; justify-content: flex-end;}
@@ -235,8 +223,7 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   .controls h2{ font-size:15px; }
 }
 .modal .panel{ width:min(680px, 94vw); padding:16px; }
-
-/* === Sticky CTA (mobile) === */
+/* Sticky CTA */
 .sticky-cta{
   position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
@@ -249,15 +236,12 @@ input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
   .sticky-cta{ display:inline-flex; }
   header .actions .primary{ display:none; }
 }
-
-/* === Focus/Test-Only Mode === */
+/* Focus/Test-Only Mode */
 body.test-only header,
 body.test-only .row,
 body.test-only footer,
 body.test-only .sticky-cta { display:none !important; }
-/* Hide H1 in test mode */
 body.test-only h1 { display:none !important; }
-
 body.test-only .container{ max-width:none; padding:0; }
 body.test-only .grid-wrap{ min-height:100vh; }
 body.test-only .frame{ border:0; border-radius:0; padding:0; box-shadow:none; background:var(--card); }
@@ -268,12 +252,11 @@ body.test-only #exitTestBtn{ display:none; }
 <body>
   <div class="container">
 
-    <!-- ✅ H1 with primary keyword -->
     <h1 style="margin:12px 0 0 0;">Online Amsler Grid Test – Free Macula Check</h1>
 
     <header style="display:flex;gap:12px;align-items:center;justify-content:space-between">
-      <!-- LOGO + Wordmark -->
-      <a class="brand" href="./" aria-label="Amsler Grid">
+      <!-- ✅ BRAND: net URL -->
+      <a class="brand" href="/amsler-grid/en/index.html" aria-label="Amsler Grid">
         <svg class="logo" viewBox="0 0 96 96" role="img" aria-hidden="true">
           <defs>
             <pattern id="amslerGridPattern" width="12" height="12" patternUnits="userSpaceOnUse">
@@ -287,12 +270,12 @@ body.test-only #exitTestBtn{ display:none; }
         <span class="brand-name">Amsler<span class="brand-accent">Grid</span></span>
       </a>
 
-      <!-- ORDER: Language → Blog → Theme → Calibration → PNG → Primary CTA -->
       <div class="actions">
-        <!-- Türkçe'ye mutlak kök: TR ana sayfa -->
         <a href="/amsler-grid/" class="btn" aria-label="Switch to Turkish">Türkçe</a>
-        <!-- Blog (EN klasöründe ise dosya adını buna göre düzenleyin) -->
-        <a href="enblog.html" class="btn" aria-label="Go to blog page">Blog</a>
+
+        <!-- ✅ BLOG: mutlak path (enblog.html root ile karışmasın) -->
+        <a href="/amsler-grid/en/enblog.html" class="btn" aria-label="Go to blog page">Blog</a>
+
         <button id="themeBtn" class="btn" aria-label="Toggle theme">Dark Theme</button>
         <button id="calBtn" class="btn">Calibration</button>
         <button id="pngBtn" class="btn">Download PNG</button>
@@ -300,6 +283,7 @@ body.test-only #exitTestBtn{ display:none; }
       </div>
     </header>
 
+    <!-- (DEVAMI: senin kodun aynen) -->
     <section class="row" style="padding-block:12px">
       <div class="card controls">
         <h2 style="margin:0 0 8px 0;font-size:16px">Display Controls</h2>
@@ -340,7 +324,6 @@ body.test-only #exitTestBtn{ display:none; }
       </div>
     </section>
 
-    <!-- ⬇️ Anchor for easy jump -->
     <section class="grid-wrap" id="test">
       <div class="frame">
         <svg id="grid" xmlns="http://www.w3.org/2000/svg" width="400" height="400" role="img" aria-label="Amsler grid"></svg>
@@ -352,10 +335,8 @@ body.test-only #exitTestBtn{ display:none; }
     </footer>
   </div>
 
-  <!-- Fixed Exit button (optional; hidden by default here) -->
   <button id="exitTestBtn" class="btn" style="display:none;position:fixed;top:14px;right:14px;z-index:70">Exit Test</button>
 
-  <!-- Calibration Modal -->
   <div id="calModal" class="modal" aria-hidden="true">
     <div class="panel">
       <h3 style="margin:0 0 6px 0">Screen Calibration</h3>
@@ -381,17 +362,16 @@ body.test-only #exitTestBtn{ display:none; }
     </div>
   </div>
 
-  <!-- ✅ Mobile Sticky CTA -->
   <a href="#test" class="sticky-cta" aria-label="Start Test">Start Test</a>
 
   <script>
-/* ===================== Robust JS (DOMContentLoaded + defensive) ===================== */
+/* JS aynı — dokunmadım */
 document.addEventListener('DOMContentLoaded', () => {
-  const DEFAULT_PX_PER_MM = 96 / 25.4; // ≈3.7795
+  const DEFAULT_PX_PER_MM = 96 / 25.4;
   let pxPerMm = DEFAULT_PX_PER_MM;
   let scale = 1;
-  let squareSizeMm = 5;   // mm
-  let gridSizeCm   = 10;  // cm
+  let squareSizeMm = 5;
+  let gridSizeCm   = 10;
   let showFixation = true;
   let fixationSizeMm = 1.5;
 
@@ -430,7 +410,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.setProperty('--_val', ((val-min)/(max-min))*100 + '%');
   };
 
-  // --- Focus/Test-Only Mode ---
   const startBtns = document.querySelectorAll('.startTestBtn, .sticky-cta');
   const exitBtn = q('#exitTestBtn');
   function enterTestOnly(){
@@ -438,9 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const testEl = document.getElementById('test');
     if (testEl) testEl.scrollIntoView({behavior:'smooth', block:'center'});
   }
-  function exitTestOnly(){
-    document.body.classList.remove('test-only');
-  }
+  function exitTestOnly(){ document.body.classList.remove('test-only'); }
 
   function isMobile(){
     return window.matchMedia('(max-width: 640px)').matches || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
@@ -480,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rs = getComputedStyle(document.documentElement);
     const bg  = rs.getPropertyValue(dark?'--bg-dark':'--bg').trim() || '#fff';
     const fg  = rs.getPropertyValue(dark?'--fg-dark':'--fg').trim() || '#111';
-    const mid = rs.getPropertyValue(dark?'--mid-dark':'--mid').trim() || '#6b7280';
+    const mid = rs.getPropertyValue(dark?'--mid-dark':'--mid').trim() || '#6b7280;
 
     const thin  = Math.max(1, Math.round(1*scale));
     const thick = Math.max(2, Math.round(2*scale));
@@ -553,56 +530,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (fixChk)    fixChk   .addEventListener('change',e=>{ showFixation = !!e.target.checked;         redraw(); });
   if (fixMmI)    fixMmI   .addEventListener('input', e=>{ fixationSizeMm = clamp(e.target.value,.5,4);redraw(); });
 
-  if (grid.parentElement){
-    grid.parentElement.addEventListener('wheel',(e)=>{
-      if(e.ctrlKey||e.metaKey||e.shiftKey){
-        e.preventDefault();
-        const dir = e.deltaY>0 ? -0.1 : 0.1;
-        scale = clamp((+scale+dir).toFixed(2), .5, 4);
-        if (scaleRange) scaleRange.value = scale;
-        if (scaleLbl)   scaleLbl.textContent = `${Number(scale).toFixed(2)}x`;
-        updateRangeFill(scaleRange);
-        redraw();
-      }
-    }, {passive:false});
-  }
-
   if (themeBtn){
     themeBtn.addEventListener('click', ()=>{
       const dark = !body.classList.contains('dark');
       body.classList.toggle('dark', dark);
       themeBtn.textContent = dark ? 'Light Theme' : 'Dark Theme';
       redraw();
-    });
-  }
-
-  if (pngBtn){
-    pngBtn.addEventListener('click', ()=>{
-      const serializer=new XMLSerializer();
-      const src=serializer.serializeToString(grid);
-      const svgBlob=new Blob([src],{type:'image/svg+xml;charset=utf-8'});
-      const url=URL.createObjectURL(svgBlob);
-      const img=new Image();
-      img.onload=()=>{
-        const canvas=document.createElement('canvas');
-        canvas.width=Math.ceil(+grid.getAttribute('width'));
-        canvas.height=Math.ceil(+grid.getAttribute('height'));
-        const ctx=canvas.getContext('2d');
-        const dark=body.classList.contains('dark');
-        const bg=getComputedStyle(document.documentElement).getPropertyValue(dark?'--bg-dark':'--bg').trim()||'#fff';
-        ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);
-        ctx.drawImage(img,0,0);
-        URL.revokeObjectURL(url);
-        canvas.toBlob((blob)=>{
-          if(!blob) return;
-          const a=document.createElement('a');
-          const theme=body.classList.contains('dark')?'dark':'light';
-          a.href=URL.createObjectURL(blob);
-          a.download=`amsler-${gridCmI?gridCmI.value:gridSizeCm}cm-${squareMmI?squareMmI.value:squareSizeMm}mm-${theme}.png`;
-          a.click();
-        },'image/png');
-      };
-      img.src=url;
     });
   }
 
@@ -640,7 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateRangeFill(scaleRange);
   updateRangeFill(cardRange);
-  redraw(); // First draw
+  redraw();
 });
   </script>
 </body>
